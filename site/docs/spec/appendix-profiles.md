@@ -2,6 +2,8 @@
 id: appendix-profiles
 title: Appendix C. Profiles
 sidebar_position: 22
+description: Index of available ADL profiles for domain-specific extensions.
+keywords: [adl, profiles, appendix, governance, healthcare, financial]
 ---
 
 # Appendix C. Profiles

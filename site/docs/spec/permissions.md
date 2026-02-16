@@ -2,11 +2,17 @@
 id: permissions
 title: 9. Permissions
 sidebar_position: 9
+description: Define agent operational boundaries with deny-by-default permissions for network, filesystem, environment, and execution.
+keywords: [adl, permissions, security, deny-by-default, network, filesystem]
 ---
 
 # Permissions
 
-The `permissions` member defines the agent's operational boundaries. **OPTIONAL.** When present, value **MUST** be an object containing one or more permission domain members. Permissions operate deny-by-default; runtimes **SHOULD** enforce declared permissions.
+The `permissions` member defines the agent's operational boundaries. **OPTIONAL.** When present, value **MUST** be an object containing one or more permission domain members.
+
+:::warning Deny-by-Default
+Permissions operate on a **deny-by-default** model: capabilities not explicitly granted are **denied**. Runtimes **SHOULD** enforce declared permissions. Runtimes that cannot enforce a permission domain **SHOULD** warn users before execution.
+:::
 
 | Domain          | Description                    |
 |-----------------|--------------------------------|
@@ -15,8 +21,6 @@ The `permissions` member defines the agent's operational boundaries. **OPTIONAL.
 | environment     | Environment variable access    |
 | execution       | Process execution boundaries   |
 | resource_limits | Resource consumption limits   |
-
-Permissions operate on a **deny-by-default** model: capabilities not explicitly granted are denied. Runtimes **SHOULD** enforce declared permissions. Runtimes that cannot enforce a permission domain **SHOULD** warn users before execution.
 
 ## 9.2 network
 

@@ -2,9 +2,13 @@
 id: capabilities
 title: 8. Capabilities
 sidebar_position: 8
+description: Define agent capabilities including tools, resources, and prompts that extend agent functionality.
+keywords: [adl, capabilities, tools, resources, prompts, function calling]
 ---
 
 # Capabilities
+
+This section defines the three capability types that agents can declare: **tools** (functions), **resources** (data sources), and **prompts** (templates).
 
 ## 8.1 tools
 
@@ -12,7 +16,7 @@ Array of tool objects (functions the agent can invoke). **OPTIONAL.** Each tool 
 
 ### Example Tool Definition
 
-```json
+```json title="Tool with read-only flag"
 {
   "name": "search_papers",
   "description": "Search for academic papers",
@@ -27,6 +31,12 @@ Array of tool objects (functions the agent can invoke). **OPTIONAL.** Each tool 
   "read_only": true
 }
 ```
+
+:::tip Tool Flags
+- `read_only: true` - Tool does not modify state (safer, can run without confirmation)
+- `idempotent: true` - Tool can be safely retried on failure
+- `requires_confirmation: true` - Runtime should prompt user before execution
+:::
 
 ## 8.2 resources
 

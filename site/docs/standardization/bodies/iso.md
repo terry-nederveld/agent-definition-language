@@ -2,11 +2,17 @@
 id: iso
 title: ISO/IEC
 sidebar_position: 3
+description: Pathway for ADL standardization through ISO/IEC JTC 1 SC 42 (Artificial Intelligence).
+keywords: [adl, iso, iec, jtc1, sc42, international standard]
 ---
 
 # ISO/IEC
 
 The International Organization for Standardization (ISO) and the International Electrotechnical Commission (IEC) jointly develop international standards through JTC 1. This document outlines the pathway for ADL standardization through ISO/IEC.
+
+:::note Timeline Consideration
+ISO/IEC standardization typically takes 3-5 years. Consider a dual-track approach with faster open-source standardization (LF/IETF) alongside ISO work.
+:::
 
 ## Overview
 

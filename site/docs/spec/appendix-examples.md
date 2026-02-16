@@ -2,6 +2,8 @@
 id: appendix-examples
 title: Appendix B. Examples
 sidebar_position: 21
+description: Index of example ADL documents from minimal to production-ready.
+keywords: [adl, examples, appendix]
 ---
 
 # Appendix B. Examples

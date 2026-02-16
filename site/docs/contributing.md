@@ -2,11 +2,20 @@
 id: contributing
 title: Contributing
 sidebar_position: 100
+description: How to contribute to the ADL specification, examples, profiles, and implementations.
+keywords: [adl, contributing, open source, community]
 ---
 
 # Contributing to ADL
 
 Thank you for your interest in contributing to the Agent Definition Language (ADL) specification!
+
+:::tip Ways to Get Involved
+- Report issues or suggest improvements
+- Submit example ADL documents
+- Contribute to profile specifications
+- Build tools and implementations
+:::
 
 ## Ways to Contribute
 

@@ -2,11 +2,17 @@
 id: runtime-behavior
 title: 11. Runtime Behavior
 sidebar_position: 11
+description: Configure runtime behavior including input/output handling, tool invocation, and error handling strategies.
+keywords: [adl, runtime, behavior, tool invocation, error handling]
 ---
 
 # Runtime Behavior
 
 The `runtime` member configures agent runtime behavior. **OPTIONAL.** When present, value **MUST** be an object.
+
+:::tip Runtime Defaults
+When runtime settings are omitted, implementations use sensible defaults. Define runtime settings when you need specific behavior for tool execution, error handling, or I/O constraints.
+:::
 
 ## 11.1 input_handling
 

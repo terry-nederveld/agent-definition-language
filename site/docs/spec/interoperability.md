@@ -2,9 +2,13 @@
 id: interoperability
 title: 15. Interoperability
 sidebar_position: 15
+description: Generate A2A Agent Cards, MCP configurations, and integrate with OpenAPI from ADL documents.
+keywords: [adl, interoperability, a2a, mcp, openapi, conversion]
 ---
 
 # Interoperability
+
+ADL is designed to interoperate with other agent and API specifications. Implementations **SHOULD** support generating configurations for common formats.
 
 ## 15.1 A2A Agent Card Generation
 
@@ -36,7 +40,7 @@ Implementations **SHOULD** support generating MCP server configurations:
 
 Tools that invoke HTTP APIs **MAY** reference OpenAPI specs. The tool `annotations` object **MAY** contain `openapi_ref` (URI) and `operation_id`.
 
-```json
+```json title="Tool with OpenAPI reference"
 {
   "name": "get_user",
   "description": "Retrieve user information",
@@ -46,3 +50,7 @@ Tools that invoke HTTP APIs **MAY** reference OpenAPI specs. The tool `annotatio
   }
 }
 ```
+
+:::tip Leveraging Existing APIs
+Use OpenAPI references to link ADL tools to existing API documentation. This enables automatic parameter validation and documentation generation.
+:::

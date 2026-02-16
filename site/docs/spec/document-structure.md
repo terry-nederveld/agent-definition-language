@@ -2,11 +2,17 @@
 id: document-structure
 title: 4. Document Structure
 sidebar_position: 4
+description: Learn about ADL document structure, media types, encoding requirements, and the extension mechanism.
+keywords: [adl, document structure, json, media type]
 ---
 
 # Document Structure
 
 ## 4.1 Media Type
+
+:::note Media Type Registration
+The `application/adl+json` media type is defined in [Section 17: IANA Considerations](/spec/iana-considerations).
+:::
 
 - ADL documents use the media type **`application/adl+json`**.
 - ADL documents **MUST** be encoded in UTF-8.
@@ -38,3 +44,7 @@ An ADL document **MUST NOT** contain members not defined by this specification, 
 - **Extension members:** Custom data without a full profile. Names **MUST** be prefixed with `x_` followed by a namespace identifier (e.g., `x_acme_internal_id`).
 
 Implementations **MUST** preserve extension members when processing but **MAY** ignore their contents. Implementations **MUST NOT** reject documents containing unknown `x_`-prefixed members.
+
+:::tip Extension Naming
+Extension member names follow the pattern `x_{namespace}_{name}`. For example, `x_acme_internal_id` uses the `acme` namespace. This prevents collisions between extensions from different organizations.
+:::

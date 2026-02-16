@@ -3,11 +3,17 @@ id: index
 title: ADL Profiles
 sidebar_position: 1
 slug: /profiles
+description: ADL Profiles extend the core specification with domain-specific requirements for regulated industries.
+keywords: [adl, profiles, governance, healthcare, financial, compliance]
 ---
 
 # ADL Profiles
 
 Profiles extend the core ADL specification with domain-specific requirements, members, and validation rules. They enable regulated industries and specialized use cases to build on ADL without modifying the core spec.
+
+:::tip When to Use Profiles
+Use profiles when your agents need to comply with industry regulations (HIPAA, SOC2, PCI-DSS) or organizational governance requirements. Profiles add structured compliance tracking without changing core ADL semantics.
+:::
 
 ## Overview
 

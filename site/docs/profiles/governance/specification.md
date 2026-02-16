@@ -2,13 +2,21 @@
 id: specification
 title: Governance Profile Specification
 sidebar_position: 2
+description: Full specification for the ADL Governance Profile including compliance frameworks, AI governance, and audit trails.
+keywords: [adl, governance, specification, compliance, audit, soc2, nist]
 ---
 
 # Governance Profile Specification
 
-**Identifier:** `urn:adl:profile:governance:1.0`
-**Status:** Draft
-**ADL Compatibility:** 0.1.x
+<div className="profile-badge">
+
+| | |
+|---|---|
+| **Identifier** | `urn:adl:profile:governance:1.0` |
+| **Status** | Draft |
+| **ADL Compatibility** | 0.1.x |
+
+</div>
 
 ## 1. Introduction
 
@@ -214,7 +222,11 @@ The Governance Profile provides mappings between ADL/profile sections and common
 
 ## 4. Example
 
-```json
+:::info Complete Example
+This example demonstrates a compliance-focused agent using all governance profile features.
+:::
+
+```json title="compliance-review-agent.adl.json"
 {
   "adl": "0.1.0",
   "name": "Compliance Review Agent",
@@ -275,7 +287,9 @@ The Governance Profile provides mappings between ADL/profile sections and common
 
 ## 5. Validation Rules
 
-Implementations validating against this profile **MUST** enforce:
+:::warning Validation Required
+Implementations validating against this profile **MUST** enforce the following rules. Non-conforming documents should be rejected.
+:::
 
 | Rule | Description |
 |------|-------------|

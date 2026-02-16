@@ -2,11 +2,17 @@
 id: metadata
 title: 12. Metadata
 sidebar_position: 12
+description: Add metadata for discovery, licensing, documentation, and organizational information.
+keywords: [adl, metadata, license, authors, tags, discovery]
 ---
 
 # Metadata
 
-The `metadata` member provides additional information. **OPTIONAL.** When present, value **MUST** be an object.
+The `metadata` member provides additional information for discovery, attribution, and licensing. **OPTIONAL.** When present, value **MUST** be an object.
+
+:::tip Discovery and Attribution
+Well-defined metadata improves agent discoverability in registries and provides clear attribution and licensing information.
+:::
 
 ## 12.1 authors
 

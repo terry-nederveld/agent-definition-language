@@ -2,9 +2,13 @@
 id: iana-considerations
 title: 17. IANA Considerations
 sidebar_position: 17
+description: IANA media type registration and profile registry for ADL documents.
+keywords: [adl, iana, media type, application/adl+json, registry]
 ---
 
 # IANA Considerations
+
+This section describes registrations with the Internet Assigned Numbers Authority (IANA).
 
 ## 17.1 Media Type
 

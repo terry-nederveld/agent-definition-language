@@ -2,9 +2,13 @@
 id: terminology
 title: 3. Terminology
 sidebar_position: 3
+description: Definitions of key terms used throughout the ADL specification.
+keywords: [adl, terminology, definitions, glossary]
 ---
 
 # Terminology
+
+The following terms are used throughout this specification:
 
 | Term | Definition |
 |------|------------|

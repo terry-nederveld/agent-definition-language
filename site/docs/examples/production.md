@@ -2,15 +2,21 @@
 id: production
 title: Production Agent
 sidebar_position: 4
+description: A complete production-ready ADL document with identity, permissions, security, and all optional features.
+keywords: [adl, production, example, security, permissions, complete]
 ---
 
 # Production Agent Example
 
 This example demonstrates a full production-style agent with identity, model configuration, tools, resources, prompts, permissions, security, runtime settings, and metadata.
 
+:::info Complete Reference
+This example uses all major ADL features. Use it as a reference when building production agents.
+:::
+
 ## Document
 
-```json
+```json title="research-assistant.adl.json"
 {
   "$schema": "https://adl-spec.org/0.1/schema.json",
   "adl": "0.1.0",
@@ -181,7 +187,9 @@ For secure agent identification:
 
 ### Permissions (Deny-by-Default)
 
-Network and filesystem access is explicitly defined:
+:::warning Security Model
+Network and filesystem access is explicitly defined. Any access not explicitly granted is **denied**.
+:::
 
 ```json
 "permissions": {
@@ -223,7 +231,10 @@ How the agent should execute:
 
 ## Notes
 
-- This example uses all major features of ADL
-- Permissions follow the deny-by-default model
-- The `$schema` field enables IDE validation
-- Attestation has an expiration date that implementations should check
+:::tip Production Checklist
+- Use `$schema` to enable IDE validation and autocomplete
+- Define explicit permissions (deny-by-default)
+- Configure security requirements (authentication, encryption)
+- Set attestation with appropriate expiration dates
+- Include comprehensive metadata for discovery
+:::

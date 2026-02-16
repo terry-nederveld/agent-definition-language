@@ -2,11 +2,20 @@
 id: profiles
 title: 13. Profiles
 sidebar_position: 13
+description: Extend ADL with domain-specific profiles for regulated industries and specialized use cases.
+keywords: [adl, profiles, governance, healthcare, financial, extension]
 ---
 
 # Profiles
 
-The `profiles` member declares which profiles the document conforms to. **OPTIONAL.** Value **MUST** be an array of profile identifiers (URIs or registered names). When a profile is declared: the document **MUST** satisfy all profile requirements, **MAY** use profile-defined members, and validators **SHOULD** check profile-specific rules.
+The `profiles` member declares which profiles the document conforms to. **OPTIONAL.** Value **MUST** be an array of profile identifiers (URIs or registered names).
+
+:::info Profile Requirements
+When a profile is declared:
+- The document **MUST** satisfy all profile requirements
+- The document **MAY** use profile-defined members
+- Validators **SHOULD** check profile-specific rules
+:::
 
 Profiles **MUST NOT** redefine core ADL members; they **MAY** add top-level members, add members to existing objects, define validation rules, or require specific values for optional members.
 

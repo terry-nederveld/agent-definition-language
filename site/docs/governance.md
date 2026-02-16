@@ -2,11 +2,17 @@
 id: governance
 title: Governance
 sidebar_position: 101
+description: Governance model for the ADL specification project including roles and decision-making processes.
+keywords: [adl, governance, open source, decision making]
 ---
 
 # ADL Governance
 
 This document describes the governance model for the Agent Definition Language (ADL) specification project.
+
+:::info Open Development
+ADL is developed openly. All decisions are documented, and consensus is sought among contributors.
+:::
 
 ## Principles
 

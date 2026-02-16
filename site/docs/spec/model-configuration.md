@@ -2,9 +2,13 @@
 id: model-configuration
 title: 7. Model Configuration
 sidebar_position: 7
+description: Configure AI model requirements including provider, capabilities, context window, and system prompts.
+keywords: [adl, model, configuration, llm, system prompt, temperature]
 ---
 
 # Model Configuration
+
+Model configuration specifies requirements for the AI model that powers the agent.
 
 ## 7.1 model
 
@@ -21,6 +25,10 @@ AI model configuration. **OPTIONAL.** When omitted, the runtime determines the m
 | capabilities   | array  | OPTIONAL | Required model capabilities    |
 
 `capabilities` values may include: `function_calling`, `vision`, `code_execution`, `streaming`.
+
+:::note Model Portability
+When `model` is omitted, the runtime determines which model to use. This enables portable agent definitions that work across different providers.
+:::
 
 ## 7.2 system_prompt
 

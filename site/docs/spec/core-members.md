@@ -2,9 +2,24 @@
 id: core-members
 title: 5. Core Members
 sidebar_position: 5
+description: The four required members that every ADL document must contain - adl, name, description, and version.
+keywords: [adl, core members, required fields, version]
 ---
 
 # Core Members
+
+Every ADL document **MUST** contain the four core members defined in this section.
+
+:::info Quick Reference
+```json
+{
+  "adl": "0.1.0",
+  "name": "My Agent",
+  "description": "What this agent does.",
+  "version": "1.0.0"
+}
+```
+:::
 
 ## 5.1 adl
 

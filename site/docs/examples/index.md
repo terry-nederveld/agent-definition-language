@@ -3,11 +3,17 @@ id: index
 title: ADL Examples
 sidebar_position: 1
 slug: /examples
+description: Example ADL documents demonstrating minimal, intermediate, and production-ready agent definitions.
+keywords: [adl, examples, json, agent definition]
 ---
 
 # ADL Examples
 
 This section contains example Agent Definition Language (ADL) documents. They illustrate the specification and can be used to validate tooling.
+
+:::tip Start Here
+New to ADL? Start with the [Minimal Example](/examples/minimal) to understand the required fields, then explore the [Production Example](/examples/production) for a complete implementation.
+:::
 
 ## Example Index
 
@@ -26,7 +32,7 @@ This section contains example Agent Definition Language (ADL) documents. They il
 
 The minimal valid ADL document:
 
-```json
+```json title="minimal-agent.adl.json"
 {
   "adl": "0.1.0",
   "name": "Hello Agent",
@@ -34,6 +40,10 @@ The minimal valid ADL document:
   "version": "1.0.0"
 }
 ```
+
+:::info File Extension
+ADL documents use the `.adl.json` or `.adl` file extension. The media type is `application/adl+json`.
+:::
 
 ## Contributing Examples
 

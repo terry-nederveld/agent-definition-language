@@ -2,9 +2,13 @@
 id: agent-identity
 title: 6. Agent Identity
 sidebar_position: 6
+description: Define unique agent identifiers, provider information, and cryptographic identity for secure agent verification.
+keywords: [adl, identity, did, cryptographic, provider]
 ---
 
 # Agent Identity
+
+Agent identity members provide unique identification and cryptographic verification capabilities.
 
 ## 6.1 id
 
@@ -30,3 +34,7 @@ Cryptographic identification for the agent. **OPTIONAL.** When present, value **
 | public_key | object | OPTIONAL | Public key for signature verification |
 
 At least one of `did` or `public_key` **SHOULD** be present. The `public_key` object, when present, **MUST** contain `algorithm` (string, REQUIRED) and `value` (string, Base64-encoded, REQUIRED). Implementations **SHOULD** reject weak algorithms (e.g., RSA < 2048 bits, DSA, ECDSA < P-256). EdDSA (Ed25519, Ed448) is **RECOMMENDED**.
+
+:::tip Recommended Algorithms
+Use **Ed25519** for cryptographic identity. It provides strong security, small key sizes, and fast verification. See [Section 10: Security](/spec/security) for signature verification details.
+:::

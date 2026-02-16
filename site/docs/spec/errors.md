@@ -2,11 +2,17 @@
 id: errors
 title: 16. Errors
 sidebar_position: 16
+description: Standard error codes and format for ADL document validation and processing errors.
+keywords: [adl, errors, validation, error codes]
 ---
 
 # Errors
 
 Implementations **SHOULD** return errors in a consistent format:
+
+:::info Error Format
+All ADL errors follow a consistent structure with error code, title, detail message, and optional source location.
+:::
 
 ```json
 {

@@ -2,9 +2,15 @@
 id: security-considerations
 title: 18. Security Considerations
 sidebar_position: 18
+description: Security requirements for ADL documents including integrity, sensitive data, and permission enforcement.
+keywords: [adl, security, integrity, permissions, sensitive data]
 ---
 
 # Security Considerations
+
+:::warning Security First
+This section contains critical security guidance. Implementers **SHOULD** carefully review these considerations.
+:::
 
 ## Document Integrity
 
@@ -12,7 +18,11 @@ Signed documents use `security.attestation.signature`. Implementations **SHOULD*
 
 ## Sensitive Data
 
-ADL documents **SHOULD NOT** contain secrets (API keys, passwords, private keys). Sensitive configuration **SHOULD** use environment variables or secret manager URIs. Implementations **SHOULD** warn on sensitive patterns in string values.
+:::danger Never Include Secrets
+ADL documents **SHOULD NOT** contain secrets (API keys, passwords, private keys). Sensitive configuration **SHOULD** use environment variables or secret manager URIs.
+:::
+
+Implementations **SHOULD** warn on sensitive patterns in string values.
 
 ## Permission Enforcement
 

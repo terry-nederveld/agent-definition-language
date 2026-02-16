@@ -2,11 +2,17 @@
 id: linux-foundation
 title: Linux Foundation / AAIF
 sidebar_position: 1
+description: Pathway for ADL standardization through the Linux Foundation and Agentic AI Foundation.
+keywords: [adl, linux foundation, aaif, openapi, standardization]
 ---
 
 # Linux Foundation / AAIF
 
 The Linux Foundation (LF) hosts several standards-related projects, including the OpenAPI Initiative (OAI) and the emerging Agentic AI Foundation (AAIF). This document outlines the pathway for ADL standardization through LF projects.
+
+:::tip Why Linux Foundation?
+The Linux Foundation's track record with OpenAPI and AsyncAPI makes it a natural fit for ADL. Community-driven governance and industry adoption align with ADL's goals.
+:::
 
 ## Overview
 

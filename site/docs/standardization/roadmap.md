@@ -3,11 +3,17 @@ id: roadmap
 title: Standardization Roadmap
 sidebar_position: 1
 slug: /standardization/roadmap
+description: Roadmap for ADL standardization through community development to formal standards bodies.
+keywords: [adl, standardization, roadmap, ietf, iso, linux foundation]
 ---
 
 # ADL Standardization Roadmap
 
 This document outlines phases and milestones for taking the Agent Definition Language (ADL) through community development and into formal standardization with multiple bodies.
+
+:::info Current Status
+ADL is currently in **Phase 1: Community Draft**. We are stabilizing the specification and gathering implementer feedback.
+:::
 
 ## Phase 1: Community Draft (Current)
 

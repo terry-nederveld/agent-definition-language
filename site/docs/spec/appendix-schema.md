@@ -2,11 +2,24 @@
 id: appendix-schema
 title: Appendix A. JSON Schema
 sidebar_position: 20
+description: The normative JSON Schema for validating ADL documents.
+keywords: [adl, json schema, validation, schema]
 ---
 
 # Appendix A. JSON Schema
 
 The normative JSON Schema for ADL is available at `https://adl-spec.org/0.1/schema.json` (JSON Schema Draft 2020-12).
+
+:::tip IDE Integration
+Reference the schema in your ADL documents using the `$schema` field to enable IDE validation and autocomplete:
+```json
+{
+  "$schema": "https://adl-spec.org/0.1/schema.json",
+  "adl": "0.1.0",
+  ...
+}
+```
+:::
 
 ## Minimal Schema
 

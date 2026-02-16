@@ -2,11 +2,17 @@
 id: ietf
 title: IETF (RFC Track)
 sidebar_position: 2
+description: Pathway for ADL standardization through the IETF RFC process.
+keywords: [adl, ietf, rfc, internet standard, standardization]
 ---
 
 # IETF (RFC Track)
 
 The Internet Engineering Task Force (IETF) develops and promotes voluntary Internet standards, particularly the standards that comprise the Internet protocol suite. This document outlines the pathway for ADL standardization through the IETF RFC process.
+
+:::info RFC Benefits
+An RFC provides global recognition, rigorous review, and a permanent citable reference. RFCs are the foundation of Internet standards.
+:::
 
 ## Overview
 

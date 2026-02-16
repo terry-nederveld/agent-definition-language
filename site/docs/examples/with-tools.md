@@ -2,15 +2,21 @@
 id: with-tools
 title: Agent with Tools
 sidebar_position: 3
+description: A calculator agent demonstrating ADL tool definitions with parameters and return types.
+keywords: [adl, tools, example, function calling, calculator]
 ---
 
 # Agent with Tools Example
 
 This example demonstrates an agent with tool definitions - a calculator that can perform math operations.
 
+:::tip Tool Design
+Tools should be atomic, well-documented, and have clear parameter schemas. Mark read-only tools appropriately to enable safer execution.
+:::
+
 ## Document
 
-```json
+```json title="calculator.adl.json"
 {
   "adl": "0.1.0",
   "name": "Calculator",
@@ -100,7 +106,13 @@ Provides additional context about the agent for discovery and licensing.
 
 ## Notes
 
+:::note Implementation Guidance
 - Tool names must be unique within the document
 - The `parameters` and `returns` fields use JSON Schema
 - `read_only` tools are generally safer and can be executed without confirmation
 - `idempotent` tools can be safely retried on failure
+:::
+
+## Next Steps
+
+Ready to build a production-ready agent? See [Production Agent](/examples/production) for a complete example with identity, permissions, security, and more.

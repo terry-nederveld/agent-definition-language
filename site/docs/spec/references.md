@@ -2,6 +2,8 @@
 id: references
 title: 19. References
 sidebar_position: 19
+description: Normative and informative references for the ADL specification.
+keywords: [adl, references, rfc, json schema, mcp, a2a]
 ---
 
 # References

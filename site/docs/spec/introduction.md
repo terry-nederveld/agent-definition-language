@@ -2,13 +2,25 @@
 id: introduction
 title: 1. Introduction
 sidebar_position: 1
+description: The Agent Definition Language (ADL) provides a standard format for describing AI agents, enabling discovery, interoperability, deployment, and security.
+keywords: [adl, agent definition language, ai agents, specification]
 ---
 
 # Agent Definition Language (ADL) Specification
 
-**Version:** 0.1.0-draft
-**Status:** Draft
-**Format:** JSON (snake_case member names)
+<div className="version-badge">
+
+| | |
+|---|---|
+| **Version** | `0.1.0-draft` |
+| **Status** | Draft |
+| **Format** | JSON (snake_case member names) |
+
+</div>
+
+:::info Specification Status
+This specification is currently in **draft** status. Breaking changes may occur before the 1.0 release. We welcome feedback through [GitHub Issues](https://github.com/adl-spec/agent-definition-language/issues).
+:::
 
 ## 1.1 Purpose
 
@@ -40,3 +52,7 @@ ADL builds upon and interoperates with:
 - **Model Context Protocol (MCP)** - ADL documents can generate MCP server configurations; tools, resources, and prompts align with MCP primitives.
 - **OpenAPI** - ADL can reference OpenAPI specifications for HTTP-based tools.
 - **W3C DIDs / Verifiable Credentials** - ADL supports DIDs for cryptographic identity and VCs for attestations.
+
+:::tip Key Concept
+ADL is to AI agents what **OpenAPI** is to REST APIs. It provides a machine-readable, vendor-neutral way to describe what an agent is, what it can do, and how it should operate.
+:::

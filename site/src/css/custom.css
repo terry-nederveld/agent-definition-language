@@ -751,3 +751,85 @@ table tr:hover td {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================
+   Version Badge / Profile Badge Styles
+   ============================================ */
+.version-badge,
+.profile-badge {
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  background: transparent;
+}
+
+.version-badge table,
+.profile-badge table {
+  width: auto;
+  min-width: 280px;
+  max-width: 400px;
+  margin: 0;
+  border: 1px solid var(--adl-border-subtle);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.04) 0%, rgba(139, 92, 246, 0.02) 100%);
+}
+
+[data-theme='dark'] .version-badge table,
+[data-theme='dark'] .profile-badge table {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);
+}
+
+.version-badge table th,
+.profile-badge table th,
+.version-badge table td,
+.profile-badge table td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--adl-border-subtle);
+  font-size: 0.9rem;
+}
+
+.version-badge table tr:last-child td,
+.profile-badge table tr:last-child td {
+  border-bottom: none;
+}
+
+.version-badge table td:first-child,
+.profile-badge table td:first-child {
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  white-space: nowrap;
+}
+
+.version-badge table td:last-child code,
+.profile-badge table td:last-child code {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+  color: var(--ifm-color-primary-dark);
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+[data-theme='dark'] .version-badge table td:last-child code,
+[data-theme='dark'] .profile-badge table td:last-child code {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.2) 0%, rgba(139, 92, 246, 0.15) 100%);
+  color: var(--ifm-color-primary-light);
+}
+
+/* Status indicators in badges */
+.version-badge table td:last-child,
+.profile-badge table td:last-child {
+  font-weight: 500;
+}
+
+/* ============================================
+   Info Admonition (used for spec status)
+   ============================================ */
+.admonition.admonition-info {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.03) 100%);
+  border-left: 4px solid var(--adl-accent-cyan);
+}
+
+/* ============================================
+   Enhanced Code Block Titles
+   ============================================ */
+div[class*='codeBlockTitle'] {
+  color: var(--ifm-color-primary);
+}
