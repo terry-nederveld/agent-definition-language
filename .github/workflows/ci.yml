@@ -57,6 +57,16 @@ jobs:
         working-directory: site
         run: npx docusaurus build
 
+      - name: Validate llms.txt generation
+        working-directory: site
+        run: |
+          echo "Checking llms.txt files..."
+          test -f build/llms.txt || (echo "ERROR: llms.txt not generated" && exit 1)
+          test -f build/llms-full.txt || (echo "ERROR: llms-full.txt not generated" && exit 1)
+          echo "llms.txt: $(wc -l < build/llms.txt) lines"
+          echo "llms-full.txt: $(wc -l < build/llms-full.txt) lines"
+          head -5 build/llms.txt
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         if: github.event_name == 'pull_request'
