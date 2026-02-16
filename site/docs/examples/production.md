@@ -7,18 +7,18 @@ keywords: [adl, production, example, security, permissions, complete]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import productionYaml from '@site/_yaml-sources/examples/production.yaml';
-import productionJson from '@site/_yaml-sources/examples/production.json';
-import identityYaml from '@site/_yaml-sources/snippets/production/identity.yaml';
-import identityJson from '@site/_yaml-sources/snippets/production/identity.json';
-import cryptoIdentityYaml from '@site/_yaml-sources/snippets/production/cryptographic-identity.yaml';
-import cryptoIdentityJson from '@site/_yaml-sources/snippets/production/cryptographic-identity.json';
-import permissionsYaml from '@site/_yaml-sources/snippets/production/permissions.yaml';
-import permissionsJson from '@site/_yaml-sources/snippets/production/permissions.json';
-import securityYaml from '@site/_yaml-sources/snippets/production/security.yaml';
-import securityJson from '@site/_yaml-sources/snippets/production/security.json';
-import runtimeYaml from '@site/_yaml-sources/snippets/production/runtime.yaml';
-import runtimeJson from '@site/_yaml-sources/snippets/production/runtime.json';
+import productionYaml from '@site/_yaml-sources/0.1.0/examples/production.yaml';
+import productionJson from '@site/_yaml-sources/0.1.0/examples/production.json';
+import identityYaml from '@site/_yaml-sources/0.1.0/snippets/production/identity.yaml';
+import identityJson from '@site/_yaml-sources/0.1.0/snippets/production/identity.json';
+import cryptoIdentityYaml from '@site/_yaml-sources/0.1.0/snippets/production/cryptographic-identity.yaml';
+import cryptoIdentityJson from '@site/_yaml-sources/0.1.0/snippets/production/cryptographic-identity.json';
+import permissionsYaml from '@site/_yaml-sources/0.1.0/snippets/production/permissions.yaml';
+import permissionsJson from '@site/_yaml-sources/0.1.0/snippets/production/permissions.json';
+import securityYaml from '@site/_yaml-sources/0.1.0/snippets/production/security.yaml';
+import securityJson from '@site/_yaml-sources/0.1.0/snippets/production/security.json';
+import runtimeYaml from '@site/_yaml-sources/0.1.0/snippets/production/runtime.yaml';
+import runtimeJson from '@site/_yaml-sources/0.1.0/snippets/production/runtime.json';
 
 # Production Agent Example
 

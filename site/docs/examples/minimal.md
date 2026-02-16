@@ -7,8 +7,8 @@ keywords: [adl, minimal, example, required fields]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import minimalYaml from '@site/_yaml-sources/examples/minimal.yaml';
-import minimalJson from '@site/_yaml-sources/examples/minimal.json';
+import minimalYaml from '@site/_yaml-sources/0.1.0/examples/minimal.yaml';
+import minimalJson from '@site/_yaml-sources/0.1.0/examples/minimal.json';
 
 # Minimal Example
 

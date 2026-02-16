@@ -7,12 +7,12 @@ keywords: [adl, tools, example, function calling, calculator]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import calculatorYaml from '@site/_yaml-sources/examples/with-tools.yaml';
-import calculatorJson from '@site/_yaml-sources/examples/with-tools.json';
-import modelYaml from '@site/_yaml-sources/snippets/with-tools/model.yaml';
-import modelJson from '@site/_yaml-sources/snippets/with-tools/model.json';
-import metadataYaml from '@site/_yaml-sources/snippets/with-tools/metadata.yaml';
-import metadataJson from '@site/_yaml-sources/snippets/with-tools/metadata.json';
+import calculatorYaml from '@site/_yaml-sources/0.1.0/examples/with-tools.yaml';
+import calculatorJson from '@site/_yaml-sources/0.1.0/examples/with-tools.json';
+import modelYaml from '@site/_yaml-sources/0.1.0/snippets/with-tools/model.yaml';
+import modelJson from '@site/_yaml-sources/0.1.0/snippets/with-tools/model.json';
+import metadataYaml from '@site/_yaml-sources/0.1.0/snippets/with-tools/metadata.yaml';
+import metadataJson from '@site/_yaml-sources/0.1.0/snippets/with-tools/metadata.json';
 
 # Agent with Tools Example
 

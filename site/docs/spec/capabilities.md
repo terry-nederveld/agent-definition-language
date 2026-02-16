@@ -7,12 +7,12 @@ keywords: [adl, capabilities, tools, resources, prompts, function calling]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import toolExample from '@site/_yaml-sources/snippets/capabilities/tool-example.yaml';
-import toolExampleJson from '@site/_yaml-sources/snippets/capabilities/tool-example.json';
-import resourceExample from '@site/_yaml-sources/snippets/capabilities/resource-example.yaml';
-import resourceExampleJson from '@site/_yaml-sources/snippets/capabilities/resource-example.json';
-import promptExample from '@site/_yaml-sources/snippets/capabilities/prompt-example.yaml';
-import promptExampleJson from '@site/_yaml-sources/snippets/capabilities/prompt-example.json';
+import toolExample from '@site/_yaml-sources/0.1.0/snippets/capabilities/tool-example.yaml';
+import toolExampleJson from '@site/_yaml-sources/0.1.0/snippets/capabilities/tool-example.json';
+import resourceExample from '@site/_yaml-sources/0.1.0/snippets/capabilities/resource-example.yaml';
+import resourceExampleJson from '@site/_yaml-sources/0.1.0/snippets/capabilities/resource-example.json';
+import promptExample from '@site/_yaml-sources/0.1.0/snippets/capabilities/prompt-example.yaml';
+import promptExampleJson from '@site/_yaml-sources/0.1.0/snippets/capabilities/prompt-example.json';
 
 # Capabilities
 

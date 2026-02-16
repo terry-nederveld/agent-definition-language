@@ -3,7 +3,11 @@
  *
  * Converts YAML source files to JSON for:
  * 1. Downloadable examples in static/examples/
- * 2. Code snippets embedded in documentation
+ * 2. Code snippets embedded in documentation (version-scoped)
+ *
+ * Structure:
+ *   _yaml-sources/{versionId}/examples/[name].yaml -> [name].json
+ *   _yaml-sources/{versionId}/snippets/[path]/[name].yaml -> [name].json
  */
 
 import * as fs from "fs";
@@ -61,16 +65,29 @@ function convertYamlToJson(
 }
 
 /**
- * Process example YAML files
- * Converts _yaml-sources/examples/*.yaml -> static/examples/*.adl.json (for downloads)
- * Also generates _yaml-sources/examples/*.json (for CodeTabs component)
+ * Get all version directories under _yaml-sources/
  */
-async function processExamples(): Promise<ConversionResult[]> {
+function getVersionDirs(): string[] {
+  if (!fs.existsSync(YAML_SOURCES)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(YAML_SOURCES, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name);
+}
+
+/**
+ * Process example YAML files for a specific version
+ * Converts _yaml-sources/{versionId}/examples/*.yaml -> *.json
+ * Also generates static/examples/*.adl.json for downloads
+ */
+async function processExamples(versionId: string): Promise<ConversionResult[]> {
   const results: ConversionResult[] = [];
-  const examplesDir = path.join(YAML_SOURCES, "examples");
+  const examplesDir = path.join(YAML_SOURCES, versionId, "examples");
 
   if (!fs.existsSync(examplesDir)) {
-    console.log("  No examples directory found, skipping...");
     return results;
   }
 
@@ -79,32 +96,30 @@ async function processExamples(): Promise<ConversionResult[]> {
   for (const file of yamlFiles) {
     const yamlPath = path.join(examplesDir, file);
 
-    // Generate JSON for static downloads
-    const staticJsonFile = file.replace(/\.yaml$/, ".adl.json");
-    const staticJsonPath = path.join(STATIC_EXAMPLES, staticJsonFile);
-    const staticResult = convertYamlToJson(yamlPath, staticJsonPath);
-    results.push(staticResult);
-
     // Generate JSON alongside YAML for CodeTabs imports
     const codeTabsJsonPath = yamlPath.replace(/\.yaml$/, ".json");
     const codeTabsResult = convertYamlToJson(yamlPath, codeTabsJsonPath);
     results.push(codeTabsResult);
+
+    // Generate JSON for static downloads (version-agnostic for latest)
+    const staticJsonFile = file.replace(/\.yaml$/, ".adl.json");
+    const staticJsonPath = path.join(STATIC_EXAMPLES, staticJsonFile);
+    const staticResult = convertYamlToJson(yamlPath, staticJsonPath);
+    results.push(staticResult);
   }
 
   return results;
 }
 
 /**
- * Process snippet YAML files
- * Converts _yaml-sources/snippets/**\/*.yaml -> _yaml-sources/snippets/**\/*.json
- * These are kept alongside YAML for the CodeTabs component to import
+ * Process snippet YAML files for a specific version
+ * Converts _yaml-sources/{versionId}/snippets/[path]/[name].yaml -> [name].json
  */
-async function processSnippets(): Promise<ConversionResult[]> {
+async function processSnippets(versionId: string): Promise<ConversionResult[]> {
   const results: ConversionResult[] = [];
-  const snippetsDir = path.join(YAML_SOURCES, "snippets");
+  const snippetsDir = path.join(YAML_SOURCES, versionId, "snippets");
 
   if (!fs.existsSync(snippetsDir)) {
-    console.log("  No snippets directory found, skipping...");
     return results;
   }
 
@@ -130,24 +145,40 @@ async function main(): Promise<void> {
   // Ensure output directories exist
   ensureDir(STATIC_EXAMPLES);
 
-  // Process examples
-  console.log("Processing examples...");
-  const exampleResults = await processExamples();
-  for (const result of exampleResults) {
-    const status = result.success ? "OK" : `ERROR: ${result.error}`;
-    console.log(`  ${path.basename(result.source)} -> ${status}`);
+  // Get all version directories
+  const versionDirs = getVersionDirs();
+
+  if (versionDirs.length === 0) {
+    console.log("No version directories found in _yaml-sources/");
+    return;
   }
 
-  // Process snippets
-  console.log("\nProcessing snippets...");
-  const snippetResults = await processSnippets();
-  for (const result of snippetResults) {
-    const status = result.success ? "OK" : `ERROR: ${result.error}`;
-    console.log(`  ${path.basename(result.source)} -> ${status}`);
+  console.log(`Found ${versionDirs.length} version(s): ${versionDirs.join(", ")}\n`);
+
+  const allResults: ConversionResult[] = [];
+
+  // Process each version
+  for (const versionId of versionDirs) {
+    console.log(`Processing version ${versionId}...`);
+
+    // Process examples
+    const exampleResults = await processExamples(versionId);
+    for (const result of exampleResults) {
+      const status = result.success ? "OK" : `ERROR: ${result.error}`;
+      console.log(`  ${path.basename(result.source)} -> ${status}`);
+    }
+    allResults.push(...exampleResults);
+
+    // Process snippets
+    const snippetResults = await processSnippets(versionId);
+    for (const result of snippetResults) {
+      const status = result.success ? "OK" : `ERROR: ${result.error}`;
+      console.log(`  ${path.basename(result.source)} -> ${status}`);
+    }
+    allResults.push(...snippetResults);
   }
 
   // Summary
-  const allResults = [...exampleResults, ...snippetResults];
   const successCount = allResults.filter((r) => r.success).length;
   const failCount = allResults.filter((r) => !r.success).length;
 

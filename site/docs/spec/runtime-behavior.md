@@ -7,10 +7,10 @@ keywords: [adl, runtime, behavior, tool invocation, error handling]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import toolInvocationYaml from '@site/_yaml-sources/snippets/runtime-behavior/tool-invocation.yaml';
-import toolInvocationJson from '@site/_yaml-sources/snippets/runtime-behavior/tool-invocation.json';
-import errorHandlingYaml from '@site/_yaml-sources/snippets/runtime-behavior/error-handling.yaml';
-import errorHandlingJson from '@site/_yaml-sources/snippets/runtime-behavior/error-handling.json';
+import toolInvocationYaml from '@site/_yaml-sources/0.1.0/snippets/runtime-behavior/tool-invocation.yaml';
+import toolInvocationJson from '@site/_yaml-sources/0.1.0/snippets/runtime-behavior/tool-invocation.json';
+import errorHandlingYaml from '@site/_yaml-sources/0.1.0/snippets/runtime-behavior/error-handling.yaml';
+import errorHandlingJson from '@site/_yaml-sources/0.1.0/snippets/runtime-behavior/error-handling.json';
 
 # Runtime Behavior
 

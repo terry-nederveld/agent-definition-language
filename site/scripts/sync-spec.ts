@@ -236,11 +236,12 @@ function flattenSections(sections: Section[]): Section[] {
 }
 
 /**
- * Sync examples from version directory to site
+ * Sync examples from version directory to site (version-scoped)
+ * Examples go to _yaml-sources/{versionId}/examples/
  */
 function syncExamples(versionId: string): number {
   const srcDir = path.join(VERSIONS_DIR, versionId, "examples");
-  const destDir = path.join(YAML_SOURCES, "examples");
+  const destDir = path.join(YAML_SOURCES, versionId, "examples");
 
   if (!fs.existsSync(srcDir)) {
     console.log(`  No examples found for version ${versionId}`);
@@ -256,11 +257,12 @@ function syncExamples(versionId: string): number {
 }
 
 /**
- * Sync snippets from version directory to site
+ * Sync snippets from version directory to site (version-scoped)
+ * Snippets go to _yaml-sources/{versionId}/snippets/
  */
 function syncSnippets(versionId: string): number {
   const srcDir = path.join(VERSIONS_DIR, versionId, "snippets");
-  const destDir = path.join(YAML_SOURCES, "snippets");
+  const destDir = path.join(YAML_SOURCES, versionId, "snippets");
 
   if (!fs.existsSync(srcDir)) {
     console.log(`  No snippets found for version ${versionId}`);

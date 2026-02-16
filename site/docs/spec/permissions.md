@@ -7,12 +7,12 @@ keywords: [adl, permissions, security, deny-by-default, network, filesystem]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import networkYaml from '@site/_yaml-sources/snippets/permissions/network.yaml';
-import networkJson from '@site/_yaml-sources/snippets/permissions/network.json';
-import filesystemYaml from '@site/_yaml-sources/snippets/permissions/filesystem.yaml';
-import filesystemJson from '@site/_yaml-sources/snippets/permissions/filesystem.json';
-import resourceLimitsYaml from '@site/_yaml-sources/snippets/permissions/resource-limits.yaml';
-import resourceLimitsJson from '@site/_yaml-sources/snippets/permissions/resource-limits.json';
+import networkYaml from '@site/_yaml-sources/0.1.0/snippets/permissions/network.yaml';
+import networkJson from '@site/_yaml-sources/0.1.0/snippets/permissions/network.json';
+import filesystemYaml from '@site/_yaml-sources/0.1.0/snippets/permissions/filesystem.yaml';
+import filesystemJson from '@site/_yaml-sources/0.1.0/snippets/permissions/filesystem.json';
+import resourceLimitsYaml from '@site/_yaml-sources/0.1.0/snippets/permissions/resource-limits.yaml';
+import resourceLimitsJson from '@site/_yaml-sources/0.1.0/snippets/permissions/resource-limits.json';
 
 # Permissions
 

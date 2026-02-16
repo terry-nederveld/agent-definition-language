@@ -7,10 +7,10 @@ keywords: [adl, security, authentication, encryption, attestation, oauth2]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import authenticationYaml from '@site/_yaml-sources/snippets/security/authentication.yaml';
-import authenticationJson from '@site/_yaml-sources/snippets/security/authentication.json';
-import encryptionYaml from '@site/_yaml-sources/snippets/security/encryption.yaml';
-import encryptionJson from '@site/_yaml-sources/snippets/security/encryption.json';
+import authenticationYaml from '@site/_yaml-sources/0.1.0/snippets/security/authentication.yaml';
+import authenticationJson from '@site/_yaml-sources/0.1.0/snippets/security/authentication.json';
+import encryptionYaml from '@site/_yaml-sources/0.1.0/snippets/security/encryption.yaml';
+import encryptionJson from '@site/_yaml-sources/0.1.0/snippets/security/encryption.json';
 
 # Security
 
