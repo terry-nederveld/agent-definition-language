@@ -12,7 +12,7 @@ keywords: [adl, agent definition language, ai agents, specification]
 
 | | |
 |---|---|
-| **Version** | `0.1.0-draft` |
+| **Version** | `0.1.0` |
 | **Status** | Draft |
 | **Format** | JSON (snake_case member names) |
 
