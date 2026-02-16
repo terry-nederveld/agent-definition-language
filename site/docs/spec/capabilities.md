@@ -6,6 +6,11 @@ description: Define agent capabilities including tools, resources, and prompts t
 keywords: [adl, capabilities, tools, resources, prompts, function calling]
 ---
 
+import CodeTabs from '@site/src/components/CodeTabs';
+import toolExample from '@site/_yaml-sources/snippets/capabilities/tool-example.yaml';
+import resourceExample from '@site/_yaml-sources/snippets/capabilities/resource-example.yaml';
+import promptExample from '@site/_yaml-sources/snippets/capabilities/prompt-example.yaml';
+
 # Capabilities
 
 This section defines the three capability types that agents can declare: **tools** (functions), **resources** (data sources), and **prompts** (templates).
@@ -16,21 +21,7 @@ Array of tool objects (functions the agent can invoke). **OPTIONAL.** Each tool 
 
 ### Example Tool Definition
 
-```json title="Tool with read-only flag"
-{
-  "name": "search_papers",
-  "description": "Search for academic papers",
-  "parameters": {
-    "type": "object",
-    "properties": {
-      "query": { "type": "string" },
-      "limit": { "type": "integer", "default": 10 }
-    },
-    "required": ["query"]
-  },
-  "read_only": true
-}
-```
+<CodeTabs yaml={toolExample} title="tool-with-read-only" />
 
 :::tip Tool Flags
 - `read_only: true` - Tool does not modify state (safer, can run without confirmation)
@@ -44,14 +35,7 @@ Array of resource objects (data sources the agent can access). **OPTIONAL.** Eac
 
 ### Example Resource Definition
 
-```json
-{
-  "name": "paper_index",
-  "type": "vector_store",
-  "description": "Vector index of paper embeddings",
-  "uri": "s3://research-data/papers/"
-}
-```
+<CodeTabs yaml={resourceExample} />
 
 ## 8.3 prompts
 
@@ -59,10 +43,4 @@ Array of prompt objects (reusable prompt templates). **OPTIONAL.** Each prompt *
 
 ### Example Prompt Definition
 
-```json
-{
-  "name": "summarize",
-  "description": "Summarize a paper",
-  "template": "Summarize the following paper:\n\n{{content}}"
-}
-```
+<CodeTabs yaml={promptExample} />

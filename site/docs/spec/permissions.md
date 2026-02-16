@@ -6,6 +6,11 @@ description: Define agent operational boundaries with deny-by-default permission
 keywords: [adl, permissions, security, deny-by-default, network, filesystem]
 ---
 
+import CodeTabs from '@site/src/components/CodeTabs';
+import networkYaml from '@site/_yaml-sources/snippets/permissions/network.yaml';
+import filesystemYaml from '@site/_yaml-sources/snippets/permissions/filesystem.yaml';
+import resourceLimitsYaml from '@site/_yaml-sources/snippets/permissions/resource-limits.yaml';
+
 # Permissions
 
 The `permissions` member defines the agent's operational boundaries. **OPTIONAL.** When present, value **MUST** be an object containing one or more permission domain members.
@@ -26,30 +31,13 @@ Permissions operate on a **deny-by-default** model: capabilities not explicitly 
 
 May contain: `allowed_hosts` (array of host patterns), `allowed_ports`, `allowed_protocols`, `deny_private` (bool). Host patterns support exact match and `*.example.com`.
 
-```json
-{
-  "network": {
-    "allowed_hosts": ["api.semanticscholar.org", "arxiv.org"],
-    "allowed_protocols": ["https"],
-    "deny_private": true
-  }
-}
-```
+<CodeTabs yaml={networkYaml} />
 
 ## 9.3 filesystem
 
 May contain: `allowed_paths` (array of `{ path, access }` where access is `read`, `write`, or `read_write`), `denied_paths`.
 
-```json
-{
-  "filesystem": {
-    "allowed_paths": [
-      { "path": "/data/papers/**", "access": "read" },
-      { "path": "/data/notes/**", "access": "read_write" }
-    ]
-  }
-}
-```
+<CodeTabs yaml={filesystemYaml} />
 
 ## 9.4 environment
 
@@ -63,11 +51,4 @@ May contain: `allowed_commands`, `denied_commands`, `allow_shell` (bool).
 
 May contain: `max_memory_mb`, `max_cpu_percent`, `max_duration_sec`, `max_concurrent`.
 
-```json
-{
-  "resource_limits": {
-    "max_memory_mb": 2048,
-    "max_duration_sec": 300
-  }
-}
-```
+<CodeTabs yaml={resourceLimitsYaml} />

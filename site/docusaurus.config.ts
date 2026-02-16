@@ -30,6 +30,26 @@ const config: Config = {
     locales: ['en'],
   },
 
+  plugins: [
+    function yamlLoaderPlugin() {
+      return {
+        name: 'yaml-loader',
+        configureWebpack() {
+          return {
+            module: {
+              rules: [
+                {
+                  test: /\.yaml$/,
+                  type: 'asset/source',
+                },
+              ],
+            },
+          };
+        },
+      };
+    },
+  ],
+
   presets: [
     [
       'classic',
@@ -38,6 +58,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/adl-spec/agent-definition-language/tree/main/',
           routeBasePath: '/',
+          // Versioning: run `npm run docusaurus docs:version X.Y.Z` when releasing
         },
         blog: false,
         theme: {
@@ -81,7 +102,7 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     metadata: [
-      {name: 'theme-color', content: '#6366f1'},
+      {name: 'theme-color', content: '#0369a1'},
       {name: 'apple-mobile-web-app-capable', content: 'yes'},
       {name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent'},
     ],
@@ -181,17 +202,13 @@ const config: Config = {
               to: '/standardization/roadmap',
             },
             {
-              label: 'Linux Foundation',
-              to: '/standardization/bodies/linux-foundation',
-            },
-            {
-              label: 'IETF',
-              to: '/standardization/bodies/ietf',
+              label: 'Get Involved',
+              href: 'https://github.com/adl-spec/agent-definition-language',
             },
           ],
         },
       ],
-      copyright: `Copyright ${new Date().getFullYear()} ADL Specification Authors. Licensed under Apache 2.0.`,
+      copyright: `Copyright ${new Date().getFullYear()} ADL Specification Authors. Sponsored by Ironstead Group, LLC. Licensed under Apache 2.0.`,
     },
     prism: {
       theme: prismThemes.github,

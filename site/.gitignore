@@ -7,6 +7,8 @@
 # Generated files
 .docusaurus
 .cache-loader
+/static/examples/*.json
+/_yaml-sources/**/*.json
 
 # Misc
 .DS_Store

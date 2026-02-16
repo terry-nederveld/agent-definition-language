@@ -142,7 +142,7 @@ export default function HomepageFeatures(): ReactNode {
             A standard format for the next generation of AI agents
           </p>
         </div>
-        <div className="row">
+        <div className={clsx('row', styles.featuresGrid)}>
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}

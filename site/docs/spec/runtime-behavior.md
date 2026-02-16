@@ -6,6 +6,10 @@ description: Configure runtime behavior including input/output handling, tool in
 keywords: [adl, runtime, behavior, tool invocation, error handling]
 ---
 
+import CodeTabs from '@site/src/components/CodeTabs';
+import toolInvocationYaml from '@site/_yaml-sources/snippets/runtime-behavior/tool-invocation.yaml';
+import errorHandlingYaml from '@site/_yaml-sources/snippets/runtime-behavior/error-handling.yaml';
+
 # Runtime Behavior
 
 The `runtime` member configures agent runtime behavior. **OPTIONAL.** When present, value **MUST** be an object.
@@ -26,25 +30,10 @@ May contain: `max_output_length`, `format`, `streaming` (bool).
 
 May contain: `parallel` (bool), `max_concurrent`, `timeout_ms`, `retry_policy`.
 
-```json
-{
-  "tool_invocation": {
-    "parallel": true,
-    "max_concurrent": 3,
-    "timeout_ms": 30000
-  }
-}
-```
+<CodeTabs yaml={toolInvocationYaml} />
 
 ## 11.4 error_handling
 
 May contain: `on_tool_error` (`abort`, `continue`, or `retry`), `max_retries`, `fallback_behavior`.
 
-```json
-{
-  "error_handling": {
-    "on_tool_error": "retry",
-    "max_retries": 2
-  }
-}
-```
+<CodeTabs yaml={errorHandlingYaml} />

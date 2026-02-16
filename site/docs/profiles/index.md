@@ -1,13 +1,13 @@
 ---
 id: index
-title: ADL Profiles
+title: Profiles
 sidebar_position: 1
 slug: /profiles
 description: ADL Profiles extend the core specification with domain-specific requirements for regulated industries.
 keywords: [adl, profiles, governance, healthcare, financial, compliance]
 ---
 
-# ADL Profiles
+# Profiles
 
 Profiles extend the core ADL specification with domain-specific requirements, members, and validation rules. They enable regulated industries and specialized use cases to build on ADL without modifying the core spec.
 

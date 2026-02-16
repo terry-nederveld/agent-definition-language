@@ -6,6 +6,10 @@ description: Configure authentication, encryption, and attestation requirements 
 keywords: [adl, security, authentication, encryption, attestation, oauth2]
 ---
 
+import CodeTabs from '@site/src/components/CodeTabs';
+import authenticationYaml from '@site/_yaml-sources/snippets/security/authentication.yaml';
+import encryptionYaml from '@site/_yaml-sources/snippets/security/encryption.yaml';
+
 # Security
 
 The `security` member defines security requirements. **OPTIONAL.** When present, value **MUST** be an object that **MAY** contain `authentication`, `encryption`, and `attestation`.
@@ -18,30 +22,13 @@ Always define explicit security requirements for production agents. At minimum, 
 
 May contain: `type` (one of `none`, `api_key`, `oauth2`, `oidc`, `mtls`), `required` (bool). Type-specific members (e.g., OAuth2: `scopes`, `token_endpoint`; OIDC: `issuer`, `audience`) **MAY** be present.
 
-```json
-{
-  "authentication": {
-    "type": "oauth2",
-    "required": true,
-    "scopes": ["read:papers", "write:notes"]
-  }
-}
-```
+<CodeTabs yaml={authenticationYaml} />
 
 ## 10.2 encryption
 
 May contain: `in_transit` (`required`, `min_version`), `at_rest` (`required`, `algorithm`).
 
-```json
-{
-  "encryption": {
-    "in_transit": {
-      "required": true,
-      "min_version": "1.2"
-    }
-  }
-}
-```
+<CodeTabs yaml={encryptionYaml} />
 
 ## 10.3 attestation
 

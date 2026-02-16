@@ -4,8 +4,9 @@ const sidebars: SidebarsConfig = {
   specSidebar: [
     {
       type: 'category',
-      label: 'ADL Specification 0.1.0',
+      label: 'Specification v0.1.0',
       collapsed: false,
+      collapsible: false,
       link: {
         type: 'doc',
         id: 'spec/introduction',
@@ -120,16 +121,6 @@ const sidebars: SidebarsConfig = {
   ],
   standardizationSidebar: [
     'standardization/roadmap',
-    {
-      type: 'category',
-      label: 'Standards Bodies',
-      collapsed: false,
-      items: [
-        'standardization/bodies/linux-foundation',
-        'standardization/bodies/ietf',
-        'standardization/bodies/iso',
-      ],
-    },
   ],
 };
 

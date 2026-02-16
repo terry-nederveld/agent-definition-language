@@ -1,12 +1,12 @@
 ---
 id: processing
-title: 14. Processing ADL Documents
+title: 14. Processing Documents
 sidebar_position: 14
 description: Requirements for parsing, validating, and processing ADL documents in implementations.
 keywords: [adl, processing, parsing, validation, implementation]
 ---
 
-# Processing ADL Documents
+# Processing Documents
 
 This section defines requirements for implementations that parse and validate ADL documents.
 

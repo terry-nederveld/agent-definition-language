@@ -1,0 +1,75 @@
+# CI/CD Pipeline for ADL Specification Site
+#
+# This workflow:
+# - Validates builds on pull requests
+# - Syncs spec content and builds the site
+# - Vercel handles actual deployment via GitHub integration
+#
+# Branch strategy:
+# - main: Production deployment (Vercel auto-deploys)
+# - PRs: Preview deployments (Vercel auto-deploys)
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'versions/**'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'versions/**'
+      - '.github/workflows/ci.yml'
+
+jobs:
+  build:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Sync spec content
+        working-directory: site
+        run: npm run sync-spec
+
+      - name: Run prebuild (YAML to JSON)
+        working-directory: site
+        run: npm run prebuild
+
+      - name: Build site
+        working-directory: site
+        run: npx docusaurus build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
+        with:
+          name: site-build
+          path: site/build
+          retention-days: 7
+
+  # Optional: Add link checking, accessibility testing, etc.
+  # lint:
+  #   name: Lint & Check
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Check broken links
+  #       run: npx linkinator ./site/build --recurse

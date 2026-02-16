@@ -6,6 +6,11 @@ description: A calculator agent demonstrating ADL tool definitions with paramete
 keywords: [adl, tools, example, function calling, calculator]
 ---
 
+import CodeTabs from '@site/src/components/CodeTabs';
+import calculatorYaml from '@site/_yaml-sources/examples/with-tools.yaml';
+import modelYaml from '@site/_yaml-sources/snippets/with-tools/model.yaml';
+import metadataYaml from '@site/_yaml-sources/snippets/with-tools/metadata.yaml';
+
 # Agent with Tools Example
 
 This example demonstrates an agent with tool definitions - a calculator that can perform math operations.
@@ -16,67 +21,13 @@ Tools should be atomic, well-documented, and have clear parameter schemas. Mark 
 
 ## Document
 
-```json title="calculator.adl.json"
-{
-  "adl": "0.1.0",
-  "name": "Calculator",
-  "description": "A calculator agent that performs math operations.",
-  "version": "0.1.0",
-  "model": {
-    "capabilities": ["function_calling"]
-  },
-  "tools": [
-    {
-      "name": "add",
-      "description": "Add two numbers",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "a": { "type": "number" },
-          "b": { "type": "number" }
-        },
-        "required": ["a", "b"]
-      },
-      "returns": {
-        "type": "number"
-      },
-      "read_only": true,
-      "idempotent": true
-    },
-    {
-      "name": "multiply",
-      "description": "Multiply two numbers",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "a": { "type": "number" },
-          "b": { "type": "number" }
-        },
-        "required": ["a", "b"]
-      },
-      "returns": {
-        "type": "number"
-      },
-      "read_only": true,
-      "idempotent": true
-    }
-  ],
-  "metadata": {
-    "license": "MIT",
-    "tags": ["calculator", "math"]
-  }
-}
-```
+<CodeTabs yaml={calculatorYaml} title="calculator.adl" />
 
 ## Key Features
 
 ### Model Configuration
 
-```json
-"model": {
-  "capabilities": ["function_calling"]
-}
-```
+<CodeTabs yaml={modelYaml} />
 
 This declares that the agent requires a model with function calling capability.
 
@@ -95,12 +46,7 @@ Each tool includes:
 
 ### Metadata
 
-```json
-"metadata": {
-  "license": "MIT",
-  "tags": ["calculator", "math"]
-}
-```
+<CodeTabs yaml={metadataYaml} />
 
 Provides additional context about the agent for discovery and licensing.
 

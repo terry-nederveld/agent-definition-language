@@ -6,7 +6,7 @@ description: Tools, libraries, and platforms that implement or consume ADL docum
 keywords: [adl, implementations, tools, validators, converters]
 ---
 
-# ADL Implementations
+# Implementations
 
 This page lists tools, libraries, and platforms that implement or consume the Agent Definition Language specification.
 

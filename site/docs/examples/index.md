@@ -1,13 +1,13 @@
 ---
 id: index
-title: ADL Examples
+title: Examples
 sidebar_position: 1
 slug: /examples
 description: Example ADL documents demonstrating minimal, intermediate, and production-ready agent definitions.
 keywords: [adl, examples, json, agent definition]
 ---
 
-# ADL Examples
+# Examples
 
 This section contains example Agent Definition Language (ADL) documents. They illustrate the specification and can be used to validate tooling.
 

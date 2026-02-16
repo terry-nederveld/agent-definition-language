@@ -6,7 +6,10 @@ description: The simplest valid ADL document with only the four required fields.
 keywords: [adl, minimal, example, required fields]
 ---
 
-# Minimal ADL Example
+import CodeTabs from '@site/src/components/CodeTabs';
+import minimalYaml from '@site/_yaml-sources/examples/minimal.yaml';
+
+# Minimal Example
 
 This is the simplest valid ADL document, containing only the required fields.
 
@@ -16,14 +19,7 @@ This document validates against the [ADL JSON Schema](/spec/appendix-schema).
 
 ## Document
 
-```json title="hello-agent.adl.json"
-{
-  "adl": "0.1.0",
-  "name": "Hello Agent",
-  "description": "A simple greeting agent.",
-  "version": "1.0.0"
-}
-```
+<CodeTabs yaml={minimalYaml} title="hello-agent.adl" />
 
 ## Required Fields
 
