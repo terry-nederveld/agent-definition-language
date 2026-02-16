@@ -47,12 +47,44 @@ const config: Config = {
     ],
   ],
 
+  headTags: [
+    // Preconnect to Google Fonts for faster loading
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    // Open Graph metadata
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:type',
+        content: 'website',
+      },
+    },
+  ],
+
   themeConfig: {
     image: 'img/adl-social-card.png',
     colorMode: {
-      defaultMode: 'light',
+      defaultMode: 'dark',
       respectPrefersColorScheme: true,
     },
+    metadata: [
+      {name: 'theme-color', content: '#6366f1'},
+      {name: 'apple-mobile-web-app-capable', content: 'yes'},
+      {name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent'},
+    ],
     navbar: {
       title: 'ADL',
       logo: {
@@ -163,8 +195,15 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
-      additionalLanguages: ['json', 'yaml', 'bash'],
+      darkTheme: prismThemes.vsDark,
+      additionalLanguages: ['json', 'yaml', 'bash', 'typescript', 'python'],
+      magicComments: [
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: {start: 'highlight-start', end: 'highlight-end'},
+        },
+      ],
     },
   } satisfies Preset.ThemeConfig,
 };
