@@ -15,6 +15,14 @@
 import * as fs from "fs";
 import * as path from "path";
 import { parse as parseYaml } from "yaml";
+import {
+  ensureDir,
+  cleanDir,
+  copyDir,
+  readYamlManifest,
+  type VersionInfo,
+  type VersionManifest,
+} from "./lib";
 
 // Paths
 const REPO_ROOT = path.resolve(__dirname, "../..");
@@ -24,22 +32,8 @@ const YAML_SOURCES = path.join(SITE_ROOT, "_yaml-sources");
 const DOCS_SPEC = path.join(SITE_ROOT, "docs", "spec");
 const VERSIONED_DOCS = path.join(SITE_ROOT, "versioned_docs");
 
-// Types
-interface VersionInfo {
-  id: string;
-  status: "draft" | "rc" | "released" | "deprecated";
-  title?: string;
-  description?: string;
-  released_at?: string;
-  superseded_by?: string;
-  note?: string;
-}
-
-interface Manifest {
-  latest: string | null;
-  next: string;
-  versions: VersionInfo[];
-}
+// Re-type Manifest as VersionManifest for local use
+type Manifest = VersionManifest;
 
 interface Section {
   id: string;
@@ -64,57 +58,10 @@ interface SyncResult {
 }
 
 /**
- * Ensure directory exists
- */
-function ensureDir(dir: string): void {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-}
-
-/**
- * Clean directory contents
- */
-function cleanDir(dir: string): void {
-  if (fs.existsSync(dir)) {
-    fs.rmSync(dir, { recursive: true });
-  }
-  ensureDir(dir);
-}
-
-/**
- * Copy directory recursively
- */
-function copyDir(src: string, dest: string): number {
-  let count = 0;
-  ensureDir(dest);
-
-  const entries = fs.readdirSync(src, { withFileTypes: true });
-  for (const entry of entries) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-
-    if (entry.isDirectory()) {
-      count += copyDir(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-      count++;
-    }
-  }
-
-  return count;
-}
-
-/**
  * Read and parse the versions manifest
  */
 function readManifest(): Manifest {
-  const manifestPath = path.join(VERSIONS_DIR, "manifest.yaml");
-  if (!fs.existsSync(manifestPath)) {
-    throw new Error(`Manifest not found: ${manifestPath}`);
-  }
-  const content = fs.readFileSync(manifestPath, "utf-8");
-  return parseYaml(content) as Manifest;
+  return readYamlManifest<Manifest>(path.join(VERSIONS_DIR, "manifest.yaml"));
 }
 
 /**

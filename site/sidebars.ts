@@ -40,6 +40,15 @@ const sidebars: SidebarsConfig = {
             'profiles/financial/specification',
           ],
         },
+        {
+          type: 'category',
+          label: 'Portfolio Profile',
+          collapsed: true,
+          items: [
+            'profiles/portfolio/overview',
+            'profiles/portfolio/specification',
+          ],
+        },
       ],
     },
     {

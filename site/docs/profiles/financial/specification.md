@@ -1,8 +1,8 @@
 ---
 id: specification
-title: Financial Profile Specification
+title: "Financial Profile Specification"
 sidebar_position: 2
-description: Full specification for the ADL Financial Profile including PCI-DSS, SOX, GLBA, MiFID II, and AML/KYC compliance.
+description: "Full specification for the ADL Financial Profile Specification including PCI-DSS, SOX, GLBA, MiFID II, and AML/KYC compliance."
 keywords: [adl, financial, specification, pci-dss, sox, glba, mifid, aml, compliance]
 ---
 
@@ -19,12 +19,12 @@ keywords: [adl, financial, specification, pci-dss, sox, glba, mifid, aml, compli
 </div>
 
 :::warning Regulatory Disclaimer
-This profile is provided as a technical specification in DRAFT status and does not constitute legal, regulatory, or compliance advice. It has not been reviewed or endorsed by the PCI Security Standards Council, the SEC, FINRA, the FTC, or any regulatory body. Organizations **MUST NOT** rely on this profile as their sole basis for regulatory compliance. Compliance with PCI-DSS requires assessment by a Qualified Security Assessor (QSA). Compliance with SOX requires audit by a registered public accounting firm.
+This profile is provided as a technical specification in DRAFT status and does not constitute legal, regulatory, or compliance advice. It has not been reviewed or endorsed by the PCI Security Standards Council, the SEC, FINRA, the FTC, or any regulatory body. Organizations **MUST NOT** rely on this profile as their sole basis for regulatory compliance. Compliance with PCI-DSS, SOX, GLBA, or any other financial regulatory framework requires qualified professional assessment specific to your organization's circumstances. This profile does not substitute for a PCI-DSS assessment by a Qualified Security Assessor (QSA) or a SOX audit by a registered public accounting firm.
 :::
 
 ## 1. Introduction
 
-The Financial Profile extends ADL for financial services environments. It adds members for financial data classification, transaction controls, regulatory scope declarations, and risk management. This profile addresses requirements from PCI-DSS v4.0, SOX, GLBA, Basel III/IV, FINRA, SEC regulations, DORA, MiFID II, and AML/KYC frameworks.
+The Financial Profile extends ADL for financial services environments. It adds members for financial data classification and handling, transaction controls, regulatory scope declarations, and financial risk management. This profile addresses requirements from PCI-DSS v4.0, SOX, GLBA, Basel III/IV, FINRA, SEC regulations, DORA, MiFID II, and AML/KYC frameworks.
 
 When this profile is declared in an ADL document's `profiles` array, the document **MUST** satisfy all requirements defined in this specification.
 
@@ -45,7 +45,7 @@ An object containing financial data handling configuration.
 | pci_scope           | object | OPTIONAL | PCI-DSS scope declaration |
 | data_residency      | array  | OPTIONAL | Jurisdictional data residency requirements |
 
-:::note Financial Data Types Moved
+:::note
 Financial data types have moved to the composable `data_classification.financial` member (Section 2.5). This enables consistent data classification across profiles and reuse within tools and resources.
 :::
 
@@ -287,7 +287,7 @@ Example:
 ## 4. Example
 
 :::info Complete Example
-This example demonstrates a trade compliance monitoring agent using financial and governance profile features together.
+This example demonstrates a complete agent definition using this profile.
 :::
 
 ```json title="trade-compliance-agent.adl.json"
@@ -308,6 +308,61 @@ This example demonstrates a trade compliance monitoring agent using financial an
     "name": "FinSecure Inc",
     "url": "https://finsecure.example",
     "contact": "compliance@finsecure.example"
+  },
+  "model": {
+    "capabilities": ["function_calling"]
+  },
+  "tools": [
+    {
+      "name": "scan_transactions",
+      "description": "Scan recent transactions for compliance violations and suspicious patterns",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "account_id": { "type": "string" },
+          "lookback_days": { "type": "integer", "default": 30 }
+        },
+        "required": ["account_id"]
+      },
+      "read_only": true
+    },
+    {
+      "name": "file_sar",
+      "description": "File a Suspicious Activity Report with FinCEN",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "transaction_ids": { "type": "array", "items": { "type": "string" } },
+          "narrative": { "type": "string" },
+          "priority": { "type": "string", "enum": ["routine", "expedited"] }
+        },
+        "required": ["transaction_ids", "narrative"]
+      },
+      "requires_confirmation": true
+    }
+  ],
+  "permissions": {
+    "network": {
+      "allowed_hosts": ["api.finsecure.example", "fincen.gov"],
+      "allowed_protocols": ["https"],
+      "deny_private": true
+    },
+    "filesystem": {
+      "allowed_paths": [
+        { "path": "/data/transactions/**", "access": "read" },
+        { "path": "/data/reports/**", "access": "read_write" }
+      ]
+    }
+  },
+  "security": {
+    "authentication": {
+      "type": "mtls",
+      "required": true
+    },
+    "encryption": {
+      "in_transit": { "required": true, "min_version": "1.3" },
+      "at_rest": { "required": true, "algorithm": "AES-256-GCM" }
+    }
   },
   "data_classification": {
     "sensitivity": "confidential",
@@ -346,6 +401,9 @@ This example demonstrates a trade compliance monitoring agent using financial an
   },
   "regulatory_scope": {
     "applicable_regulations": ["GLBA", "BSA_AML", "FINRA", "SEC_REG"],
+    "jurisdictions": [
+      { "jurisdiction": "US", "regulation": "BSA_AML" }
+    ],
     "record_retention": {
       "min_retention_days": 1825,
       "tamper_proof": true

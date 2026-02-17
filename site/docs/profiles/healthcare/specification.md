@@ -1,8 +1,8 @@
 ---
 id: specification
-title: Healthcare Profile Specification
+title: "Healthcare Profile Specification"
 sidebar_position: 2
-description: Full specification for the ADL Healthcare Profile including HIPAA compliance, PHI handling, clinical safety, and interoperability.
+description: "Full specification for the ADL Healthcare Profile Specification including HIPAA compliance, PHI handling, clinical safety, and FHIR interoperability."
 keywords: [adl, healthcare, specification, hipaa, phi, fhir, clinical, compliance]
 ---
 
@@ -47,7 +47,7 @@ An object containing HIPAA regulatory compliance configuration.
 | minimum_necessary | object | REQUIRED | Minimum necessary access configuration |
 | security_rule     | object | OPTIONAL | Security Rule compliance settings |
 
-:::note PHI Categories Moved
+:::note
 PHI categories have moved to the composable `data_classification.healthcare` member (Section 2.5). This enables consistent data classification across profiles and reuse within tools and resources.
 :::
 
@@ -314,7 +314,7 @@ Example:
 ## 4. Example
 
 :::info Complete Example
-This example demonstrates a clinical research agent using healthcare and governance profile features together.
+This example demonstrates a complete agent definition using this profile.
 :::
 
 ```json title="clinical-research-agent.adl.json"
@@ -335,6 +335,60 @@ This example demonstrates a clinical research agent using healthcare and governa
     "name": "HealthTech Corp",
     "url": "https://healthtech.example",
     "contact": "compliance@healthtech.example"
+  },
+  "model": {
+    "capabilities": ["function_calling"]
+  },
+  "tools": [
+    {
+      "name": "search_patient_records",
+      "description": "Search de-identified patient records for clinical trial matching",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "criteria": { "type": "string" },
+          "limit": { "type": "integer", "default": 20 }
+        },
+        "required": ["criteria"]
+      },
+      "read_only": true
+    },
+    {
+      "name": "generate_cohort_report",
+      "description": "Generate a cohort analysis report from matched records",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "cohort_id": { "type": "string" },
+          "format": { "type": "string", "enum": ["pdf", "json"] }
+        },
+        "required": ["cohort_id"]
+      }
+    }
+  ],
+  "permissions": {
+    "network": {
+      "allowed_hosts": ["ehr.healthtech.example", "fhir.healthtech.example"],
+      "allowed_protocols": ["https"],
+      "deny_private": true
+    },
+    "filesystem": {
+      "allowed_paths": [
+        { "path": "/data/deidentified/**", "access": "read" },
+        { "path": "/data/reports/**", "access": "read_write" }
+      ]
+    }
+  },
+  "security": {
+    "authentication": {
+      "type": "oauth2",
+      "required": true,
+      "scopes": ["patient:read", "report:write"]
+    },
+    "encryption": {
+      "in_transit": { "required": true, "min_version": "1.2" },
+      "at_rest": { "required": true, "algorithm": "AES-256-GCM" }
+    }
   },
   "data_classification": {
     "sensitivity": "restricted",
