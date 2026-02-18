@@ -4,10 +4,10 @@
   "description": "CLI tooling for the Agent Definition Language (ADL)",
   "type": "module",
   "bin": {
-    "adl": "./dist/index.js"
+    "adl": "dist/index.js"
   },
   "files": [
-    "dist/",
+    "dist/index.js",
     "README.md"
   ],
   "scripts": {
@@ -31,10 +31,13 @@
   "engines": {
     "bun": ">=1.0.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IronsteadGroup/agent-definition-language",
+    "url": "git+https://github.com/Ironstead-Group/agent-definition-language.git",
     "directory": "packages/adl-cli"
   },
   "keywords": [
