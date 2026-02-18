@@ -34,16 +34,16 @@ DEFAULT_MANIFEST = REPO_ROOT / "versions" / "0.1.0" / "spec-manifest.yaml"
 DEFAULT_BOILERPLATE = REPO_ROOT / "standardization" / "templates" / "ietf-boilerplate.md"
 DEFAULT_OUTPUT = REPO_ROOT / "standardization" / "output" / "draft-adl-00.md"
 
-# Map HTML link text/URLs to kramdown-rfc citation keys.
-# Used to convert <a href="...">label</a> to {{label}} citations.
-HTML_LINK_CITATIONS = {
-    "JSON [RFC8259]": "{{RFC8259}}",
-    "JSON Schema": "{{JSON-SCHEMA}}",
-    "A2A Protocol": "{{A2A}}",
-    "Model Context Protocol (MCP)": "{{MCP}}",
-    "OpenAPI": "{{OPENAPI}}",
-    "W3C DIDs": "{{W3C.DID}}",
-    "Verifiable Credentials": "{{W3C.VC}}",
+# Map link text to kramdown-rfc citation keys.
+# Used to convert [label](url) or <a href="...">label</a> to {{label}} citations.
+LINK_CITATIONS = {
+    "JSON [RFC8259]": "JSON {{RFC8259}}",
+    "JSON Schema": "JSON Schema {{JSON-SCHEMA}}",
+    "A2A Protocol": "A2A Protocol {{A2A}}",
+    "Model Context Protocol (MCP)": "Model Context Protocol (MCP) {{MCP}}",
+    "OpenAPI": "OpenAPI {{OPENAPI}}",
+    "W3C DIDs": "W3C DIDs {{W3C.DID}}",
+    "Verifiable Credentials": "Verifiable Credentials {{W3C.VC}}",
 }
 
 # RFC 2119 / 8174 keywords that get {bcp14} spans in kramdown-rfc.
@@ -64,10 +64,14 @@ BCP14_KEYWORDS = [
 # Inline citation replacements: spec text -> kramdown-rfc citation.
 INLINE_CITATIONS = {
     "[RFC2119]": "{{RFC2119}}",
-    "[RFC8174]": "{{RFC8174}}",
     "[RFC3986]": "{{RFC3986}}",
+    "[RFC6838]": "{{RFC6838}}",
     "[RFC6901]": "{{RFC6901}}",
+    "[RFC8126]": "{{RFC8126}}",
+    "[RFC8141]": "{{RFC8141}}",
+    "[RFC8174]": "{{RFC8174}}",
     "[RFC8259]": "{{RFC8259}}",
+    "[RFC8615]": "{{RFC8615}}",
     "[RFC8785]": "{{RFC8785}}",
     "[A2A]": "{{A2A}}",
     "[JSON-SCHEMA]": "{{JSON-SCHEMA}}",
@@ -111,19 +115,36 @@ def split_boilerplate(text: str) -> tuple[str, str, str]:
     return front_and_abstract, middle_marker, back_marker
 
 
-def strip_html_links(text: str) -> str:
-    """Replace <a href="...">label</a> with kramdown-rfc citations or plain text."""
-    def replace_link(match: re.Match) -> str:
+def convert_spec_links(text: str) -> str:
+    """Convert Markdown links and HTML links to kramdown-rfc citations or plain text.
+
+    Handles both [label](url) Markdown links and <a href>label</a> HTML links.
+    Known spec references are converted to kramdown-rfc {{citation}} syntax.
+    """
+    # Replace known Markdown links with kramdown-rfc citations.
+    # Handle nested brackets like [JSON [RFC8259]](url) by matching each known label.
+    for link_text, citation in LINK_CITATIONS.items():
+        # Escape special regex chars in link_text, but keep [ and ] literal
+        escaped = re.escape(link_text)
+        pattern = r'\[' + escaped + r'\]\(https?://[^)]+\)'
+        text = re.sub(pattern, citation, text)
+
+    # Catch any remaining Markdown links and convert to plain text
+    def replace_unknown_link(match: re.Match) -> str:
+        return match.group(1)
+
+    text = re.sub(r'\[([^\[\]]+)\]\(https?://[^)]+\)', replace_unknown_link, text)
+
+    def replace_html_link(match: re.Match) -> str:
         label = match.group(1)
-        for link_text, citation in HTML_LINK_CITATIONS.items():
+        for link_text, citation in LINK_CITATIONS.items():
             if link_text in label:
-                display = label.split("[")[0].strip()
-                return f"{display} {citation}"
+                return citation
         return label
 
-    # Replace all <a> tags with their label text + citation
-    text = re.sub(r'<a\s+href="[^"]*"[^>]*>(.*?)</a>', replace_link, text)
-    # Clean up doubled bold markers from **<a>label</a>** -> ****label**
+    # Replace any remaining <a> tags with their label text + citation
+    text = re.sub(r'<a\s+href="[^"]*"[^>]*>(.*?)</a>', replace_html_link, text)
+    # Clean up doubled bold markers
     text = text.replace("****", "**")
     return text
 
@@ -195,6 +216,35 @@ def convert_inline_citations(text: str) -> str:
     for spec_ref, kramdown_ref in INLINE_CITATIONS.items():
         text = text.replace(spec_ref, kramdown_ref)
     return text
+
+
+def escape_kramdown_syntax(text: str) -> str:
+    """Escape patterns that conflict with kramdown-rfc syntax.
+
+    Fixes three classes of issues:
+    - [this document] and [date of publication] look like Markdown link references
+    - {{ }} inside code blocks triggers kramdown-rfc citation parsing
+    """
+    # Escape bracket expressions that are not links or citations
+    text = text.replace("[this document]", "\\[this document\\]")
+    text = text.replace("[date of publication]", "\\[date of publication\\]")
+
+    # Inside fenced code blocks, escape {{ and }} to prevent
+    # kramdown-rfc from interpreting them as citation references.
+    # Uses ABNF-compatible hex notation: 2%x7B for {{ and 2%x7D for }}
+    lines = text.split("\n")
+    result = []
+    in_code_block = False
+    for line in lines:
+        if line.strip().startswith("```"):
+            in_code_block = not in_code_block
+            result.append(line)
+            continue
+        if in_code_block:
+            line = line.replace('"{{" ', '2%x7B ')
+            line = line.replace(' "}}"', ' 2%x7D')
+        result.append(line)
+    return "\n".join(result)
 
 
 def extract_sections(spec_text: str) -> dict:
@@ -326,7 +376,7 @@ def build_middle_content(sections: dict) -> str:
 def build_back_content(sections: dict) -> str:
     """Build the --- back content from appendices."""
     back_parts = []
-    for suffix in ["A", "B", "C"]:
+    for suffix in ["A", "B", "C", "D"]:
         key = f"appendix_{suffix}"
         if key in sections:
             back_parts.append(sections[key])
@@ -360,18 +410,20 @@ def generate(spec_path: Path, manifest_path: Path, boilerplate_path: Path,
     back_content = build_back_content(sections)
 
     # Apply transformations to middle content
-    middle_content = strip_html_links(middle_content)
+    middle_content = convert_spec_links(middle_content)
     middle_content = fix_html_entities(middle_content)
     middle_content = convert_inline_citations(middle_content)
+    middle_content = escape_kramdown_syntax(middle_content)
     middle_content = convert_bcp14_keywords(middle_content)
     middle_content = strip_horizontal_rules(middle_content)
     middle_content = adjust_heading_levels(middle_content)
     middle_content = strip_section_numbers(middle_content)
 
     # Apply transformations to back content
-    back_content = strip_html_links(back_content)
+    back_content = convert_spec_links(back_content)
     back_content = fix_html_entities(back_content)
     back_content = convert_inline_citations(back_content)
+    back_content = escape_kramdown_syntax(back_content)
     back_content = strip_horizontal_rules(back_content)
     back_content = adjust_heading_levels(back_content)
     back_content = strip_section_numbers(back_content)

@@ -4,6 +4,7 @@ abbrev: "ADL"
 docname: draft-adl-00
 category: std
 ipr: trust200902
+submissionType: IETF
 area: art
 workgroup: Individual Submission
 keyword:
@@ -27,9 +28,13 @@ author:
 normative:
   RFC2119:
   RFC3986:
+  RFC6838:
   RFC6901:
+  RFC8126:
+  RFC8141:
   RFC8174:
   RFC8259:
+  RFC8615:
   RFC8785:
 
 informative:
@@ -72,18 +77,6 @@ informative:
       - ins: M. Sporny
         name: Manu Sporny
     date: 2022
-
-note:
-  - title: "IPR Disclosure"
-    content: |
-      The technology described in this document is the subject of
-      US Provisional Patent Application No. 63/985,186
-      (filed February 18, 2026), assigned to Ironstead Group, LLC.
-      The applicant is committed to licensing any essential patent
-      claims under reasonable and non-discriminatory (RAND) terms,
-      or alternatively under royalty-free terms compatible with
-      open standards, consistent with the IETF's IPR policies
-      (BCP 79, RFC 8179).
 
 --- abstract
 
