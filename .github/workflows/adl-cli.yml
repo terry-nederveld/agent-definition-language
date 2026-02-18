@@ -27,6 +27,9 @@ on:
       - 'packages/adl-cli/**'
       - '.github/workflows/adl-cli.yml'
 
+permissions:
+  contents: read
+
 jobs:
   build-test:
     name: Build & Test
