@@ -19,11 +19,10 @@ pi:
   compact: yes
 
 author:
-  -
-    ins: J. Doe
-    name: Jane Doe
-    organization: Ironstead Group, LLC
-    email: jane@example.com
+  - ins: T. Nederveld
+    name: Terrill Nederveld
+    organization: Ironstead Group, LLC.
+    email: terry+adl@ironsteadgroup.com
 
 normative:
   RFC2119:
@@ -73,6 +72,18 @@ informative:
       - ins: M. Sporny
         name: Manu Sporny
     date: 2022
+
+note:
+  - title: "IPR Disclosure"
+    content: |
+      The technology described in this document is the subject of
+      US Provisional Patent Application No. 63/985,186
+      (filed February 18, 2026), assigned to Ironstead Group, LLC.
+      The applicant is committed to licensing any essential patent
+      claims under reasonable and non-discriminatory (RAND) terms,
+      or alternatively under royalty-free terms compatible with
+      open standards, consistent with the IETF's IPR policies
+      (BCP 79, RFC 8179).
 
 --- abstract
 
