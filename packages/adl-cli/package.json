@@ -1,6 +1,6 @@
 {
   "name": "@adl-spec/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI tooling for the Agent Definition Language (ADL)",
   "type": "module",
   "bin": {
@@ -14,7 +14,8 @@
     "build": "bun build src/index.ts --outdir dist --target node",
     "build:bin": "bun run scripts/build-binaries.ts",
     "test": "bun test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "bump": "bun run scripts/bump-version.ts"
   },
   "dependencies": {
     "ajv": "^8.17.1",
