@@ -92,6 +92,9 @@ const config: Config = {
           routeBasePath: '/',
           // Versioning: run `npm run docusaurus docs:version X.Y.Z` when releasing
         },
+        gtag: {
+          trackingID: 'G-42E68RY568',
+        },
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
