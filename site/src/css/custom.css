@@ -472,6 +472,13 @@ div[class*='codeBlockTitle'] {
   border-right: 1px solid var(--adl-border-subtle);
 }
 
+/* Let the doc content fill the space between sidebars instead of centering
+   with a fixed max-width. The left sidebar sits outside the container,
+   so a capped container creates an asymmetric gap on the left. */
+[class*='docMainContainer'] .container {
+  max-width: 100%;
+}
+
 .theme-doc-sidebar-menu {
   font-size: 0.9rem;
   padding: 0.5rem;
@@ -505,10 +512,21 @@ div[class*='codeBlockTitle'] {
 /* Category labels - WCAG AA compliant */
 .menu__link--sublist {
   font-weight: 600;
-  text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   color: var(--adl-text-subtle);
+}
+
+/* Top-level doc links — match category label style */
+.theme-doc-sidebar-menu > .menu__list-item > .menu__link {
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--adl-text-subtle);
+}
+
+.theme-doc-sidebar-menu > .menu__list-item > .menu__link--active {
+  color: var(--ifm-color-primary);
 }
 
 /* ============================================

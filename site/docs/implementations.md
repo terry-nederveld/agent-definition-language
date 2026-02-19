@@ -3,63 +3,90 @@ id: implementations
 title: Implementations
 sidebar_position: 102
 description: Tools, libraries, and platforms that implement or consume ADL documents.
-keywords: [adl, implementations, tools, validators, converters]
+keywords: [adl, implementations, tools, validators, converters, cli, vscode]
 ---
 
 # Implementations
 
-This page lists tools, libraries, and platforms that implement or consume the Agent Definition Language specification.
-
-:::note Early Stage
-ADL is in early development. Reference implementations are in progress. Contributions welcome!
-:::
+Tools, libraries, and integrations for working with ADL documents. Lint your agents like code.
 
 ## Official Tools
 
-*Coming soon - reference implementation in development*
+### [@adl-spec/cli](https://www.npmjs.com/package/@adl-spec/cli)
 
-## Community Implementations
+The official command-line tool for ADL. Validate agent definitions against the spec, convert them to A2A Agent Cards or MCP configurations, and scaffold new documents from templates.
 
-### Validators
+- **Type:** Validator / Converter / Scaffolder
+- **ADL Version:** 0.1.0+
+- **License:** Apache-2.0
+- **Language:** TypeScript (Bun runtime)
+- **Source:** [packages/adl-cli](https://github.com/Ironstead-Group/agent-definition-language/tree/main/packages/adl-cli)
 
-*No validators listed yet*
+```bash
+# Validate an agent definition
+npx @adl-spec/cli validate agent.adl.yaml
 
-### Converters
+# Convert to A2A Agent Card
+npx @adl-spec/cli convert agent.adl.yaml --to a2a
 
-*No converters listed yet*
+# Scaffold a governance-ready definition
+npx @adl-spec/cli init --template governance
+```
 
-### IDE Extensions
+### [ADL JSON Schema](https://adl-spec.org/0.1/schema.json)
 
-*No IDE extensions listed yet*
+The official JSON Schema for ADL 0.1.0. Use it for validation in any language with a JSON Schema library, or wire it into your editor for autocomplete and inline diagnostics.
 
-### Runtime Integrations
+- **Type:** Schema
+- **ADL Version:** 0.1.0
+- **License:** Apache-2.0
+- **Source:** [versions/0.1.0/schema.json](https://github.com/Ironstead-Group/agent-definition-language/blob/main/versions/0.1.0/schema.json)
 
-*No runtime integrations listed yet*
+## IDE Support
+
+### VS Code — JSON Schema Validation
+
+Get autocomplete, inline errors, and hover docs for ADL documents in VS Code with zero extensions. Add this to your workspace `.vscode/settings.json`:
+
+```json
+{
+  "json.schemas": [
+    {
+      "url": "https://adl-spec.org/0.1/schema.json",
+      "fileMatch": ["*.adl.json"]
+    }
+  ],
+  "yaml.schemas": {
+    "https://adl-spec.org/0.1/schema.json": "*.adl.yaml"
+  }
+}
+```
+
+- **Type:** IDE Integration
+- **ADL Version:** 0.1.0
+- **Prerequisites:** For YAML support, install the [YAML extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+
+### JetBrains IDEs — JSON Schema Validation
+
+IntelliJ IDEA, WebStorm, and other JetBrains IDEs support JSON Schema mapping natively. Go to **Settings > Languages & Frameworks > Schemas and DTDs > JSON Schema Mappings**, add a new mapping with the schema URL `https://adl-spec.org/0.1/schema.json`, and map it to your `*.adl.json` files.
+
+- **Type:** IDE Integration
+- **ADL Version:** 0.1.0
 
 ## Adding Your Implementation
 
-If you've built a tool or library that works with ADL, we'd love to list it here!
+Built something with ADL? We want to list it here.
 
 ### Requirements
 
-To be listed, implementations should:
-
-1. Support ADL 0.1.0 or later
-2. Be publicly available (open source preferred)
-3. Include documentation for users
-4. Be actively maintained
+1. Supports ADL 0.1.0 or later
+2. Publicly available (open source preferred)
+3. Includes documentation for users
+4. Actively maintained
 
 ### How to Submit
 
-1. Open a pull request adding your implementation to this page
-2. Include:
-   - Name and description
-   - Link to repository/website
-   - ADL version(s) supported
-   - License
-   - Brief usage example (optional)
-
-### Template
+Open a [pull request](https://github.com/Ironstead-Group/agent-definition-language/pulls) adding your implementation to this page. Use this template:
 
 ```markdown
 ### [Tool Name](https://github.com/org/repo)
@@ -71,35 +98,3 @@ Brief description of what the tool does.
 - **License:** MIT / Apache-2.0 / etc.
 - **Language:** TypeScript / Python / Go / etc.
 ```
-
-## Implementation Guidelines
-
-When building ADL implementations, consider:
-
-### Validation
-
-- Validate against JSON Schema
-- Check semantic rules (unique names, valid URIs, etc.)
-- Support profile-specific validation
-
-### Error Handling
-
-- Use standard error codes (ADL-xxxx)
-- Provide helpful error messages
-- Include source location when possible
-
-### Interoperability
-
-- Support A2A Agent Card generation
-- Support MCP configuration generation
-- Preserve extension members when round-tripping
-
-### Testing
-
-- Test against official examples
-- Include edge cases
-- Document any limitations
-
-## Questions?
-
-Open an issue if you have questions about implementing ADL or getting your implementation listed.

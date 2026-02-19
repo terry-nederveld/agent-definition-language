@@ -63,12 +63,14 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'category',
+      type: 'doc',
+      id: 'standardization/roadmap',
       label: 'Standardization',
-      collapsed: true,
-      items: [
-        'standardization/roadmap',
-      ],
+    },
+    {
+      type: 'doc',
+      id: 'implementations',
+      label: 'Implementations',
     },
   ],
 };

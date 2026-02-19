@@ -7,7 +7,10 @@ const config: Config = {
   tagline: 'The standard for trusted AI agents',
   favicon: 'img/favicon.ico',
 
-  clientModules: ['./src/clientModules/disableCrossTabThemeSync.ts'],
+  clientModules: [
+    './src/clientModules/gtagSafeGuard.ts',
+    './src/clientModules/disableCrossTabThemeSync.ts',
+  ],
 
   future: {
     v4: true,
