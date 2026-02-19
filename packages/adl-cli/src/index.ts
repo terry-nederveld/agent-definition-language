@@ -9,7 +9,7 @@ const program = new Command();
 program
   .name("adl")
   .description("CLI tooling for the Agent Definition Language (ADL)")
-  .version("0.1.2");
+  .version("0.1.3");
 
 registerValidateCommand(program);
 registerConvertCommand(program);
