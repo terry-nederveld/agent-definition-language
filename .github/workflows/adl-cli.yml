@@ -26,6 +26,7 @@ on:
     paths:
       - 'packages/adl-cli/**'
       - '.github/workflows/adl-cli.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
