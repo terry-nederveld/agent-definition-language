@@ -4,7 +4,7 @@ title: Standardization
 sidebar_position: 1
 slug: /standardization/roadmap
 description: ADL's path toward becoming a recognized industry standard.
-keywords: [adl, standardization, roadmap, specification]
+keywords: [adl, standardization, roadmap, ai standards, agentic ai, ietf, iso, linux foundation, ai regulation, ai governance, industry standard]
 ---
 
 # Standardization

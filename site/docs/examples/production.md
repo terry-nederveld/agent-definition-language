@@ -3,7 +3,7 @@ id: production
 title: Production Agent
 sidebar_position: 4
 description: A complete production-ready ADL document with identity, permissions, security, and all optional features.
-keywords: [adl, production, example, security, permissions, complete]
+keywords: [adl, production example, agentic ai, ai agent security, agent permissions, enterprise ai, ai compliance, agent deployment]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';

@@ -3,7 +3,7 @@ id: overview
 title: Overview
 sidebar_position: 1
 description: The Portfolio Profile extends ADL with agent inventory, relationships, and domain membership for managing agent portfolios at scale.
-keywords: [adl, portfolio, inventory, relationships, domain, catalog, ddd]
+keywords: [adl, agent portfolio, agent inventory, multi-agent, agentic ai, agent orchestration, agent catalog, agent relationships, ai fleet management]
 ---
 
 # Portfolio Profile

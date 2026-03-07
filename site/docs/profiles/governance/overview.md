@@ -3,7 +3,7 @@ id: overview
 title: Overview
 sidebar_position: 1
 description: The Governance Profile extends ADL for regulated enterprise environments with compliance tracking and audit trails.
-keywords: [adl, governance, compliance, soc2, nist, iso, enterprise]
+keywords: [adl, ai governance, agentic ai, ai compliance, soc2, nist 800-53, iso 27001, eu ai act, enterprise ai, responsible ai, trustworthy ai, ai audit]
 ---
 
 # Governance Profile

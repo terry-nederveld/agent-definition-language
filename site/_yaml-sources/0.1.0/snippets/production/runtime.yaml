@@ -1,5 +1,0 @@
-runtime:
-  tool_invocation:
-    parallel: true
-    max_concurrent: 3
-    timeout_ms: 30000

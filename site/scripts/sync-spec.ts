@@ -103,7 +103,7 @@ id: ${section.id}
 title: "${section.number}. ${section.title}"
 sidebar_position: ${sidebarPosition}
 description: ADL Specification - ${section.title}
-keywords: [adl, specification, ${section.id.replace(/-/g, ", ")}]
+keywords: [adl, specification, agentic ai, ai agent, ${section.id.replace(/-/g, ", ")}]
 ---
 `;
 }
@@ -350,8 +350,8 @@ function generateSpecDocs(
   const frontmatter = `---
 id: specification
 title: "Agent Definition Language Specification"
-description: "ADL Specification v${versionId} (${statusLabel})"
-keywords: [adl, specification, agent, definition, language]
+description: "The complete ADL v${versionId} specification — defining agent identity, permissions, lifecycle, compliance, and governance in a machine-readable format."
+keywords: [adl, specification, agent definition language, ai agent, agentic ai, agentic, ai governance, ai safety, ai compliance, agent permissions, agent lifecycle, multi-agent, trustworthy ai, responsible ai]
 toc_max_heading_level: 3
 hide_table_of_contents: false
 ---
