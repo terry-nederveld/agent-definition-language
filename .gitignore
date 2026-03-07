@@ -182,6 +182,7 @@ tmp/
 
 # Private/internal docs (not for public distribution)
 docs/internal/
+proposals/pvt/
 
 # Reference cache (auto-generated)
 .refcache/
