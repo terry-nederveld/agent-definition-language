@@ -3,7 +3,7 @@ id: overview
 title: Overview
 sidebar_position: 1
 description: The Financial Profile extends ADL for financial services with PCI-DSS, SOX, GLBA, and MiFID II compliance.
-keywords: [adl, financial, pci-dss, sox, glba, mifid, aml, compliance]
+keywords: [adl, financial ai, pci-dss, sox, glba, mifid, aml, ai compliance, agentic ai, fintech ai, regulated ai, ai risk management, trustworthy ai]
 ---
 
 # Financial Profile

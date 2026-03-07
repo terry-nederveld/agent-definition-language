@@ -3,7 +3,7 @@ id: governance
 title: Governance
 sidebar_position: 101
 description: Governance model for the ADL specification project including roles and decision-making processes.
-keywords: [adl, governance, open source, decision making]
+keywords: [adl, project governance, open source, decision making, agentic ai, ai standards body, community governance]
 ---
 
 # Governance

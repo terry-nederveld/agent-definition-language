@@ -17,12 +17,14 @@ on:
     paths:
       - 'site/**'
       - 'versions/**'
+      - 'profiles/**'
       - '.github/workflows/ci.yml'
   pull_request:
     branches: [main]
     paths:
       - 'site/**'
       - 'versions/**'
+      - 'profiles/**'
       - '.github/workflows/ci.yml'
 
 jobs:
@@ -48,6 +50,10 @@ jobs:
       - name: Sync spec content
         working-directory: site
         run: npm run sync-spec
+
+      - name: Sync profile content
+        working-directory: site
+        run: npm run sync-profiles
 
       - name: Run prebuild (YAML to JSON)
         working-directory: site

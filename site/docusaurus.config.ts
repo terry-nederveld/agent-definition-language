@@ -141,18 +141,60 @@ const config: Config = {
         content: 'website',
       },
     },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:site_name',
+        content: 'Agent Definition Language (ADL)',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:locale',
+        content: 'en_US',
+      },
+    },
+    // Structured data for search engines
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'application/ld+json',
+      },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Agent Definition Language (ADL)',
+        url: 'https://adl-spec.org',
+        description: 'The open standard for defining AI agent identity, permissions, lifecycle, and compliance in one auditable, machine-readable document.',
+        publisher: {
+          '@type': 'Organization',
+          name: 'ADL Specification Authors',
+          url: 'https://adl-spec.org',
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://adl-spec.org/?q={search_term_string}',
+          'query-input': 'required name=search_term_string',
+        },
+      }),
+    },
   ],
 
   themeConfig: {
-    image: 'img/adl-social-card.png',
+    image: 'img/docusaurus-social-card.jpg',
     colorMode: {
       defaultMode: 'dark',
       respectPrefersColorScheme: true,
     },
     metadata: [
+      {name: 'description', content: 'Agent Definition Language (ADL) — the open standard for defining AI agent identity, permissions, lifecycle, and compliance in one auditable, machine-readable document.'},
       {name: 'theme-color', content: '#0369a1'},
       {name: 'apple-mobile-web-app-capable', content: 'yes'},
       {name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent'},
+      {name: 'twitter:card', content: 'summary_large_image'},
+      {name: 'twitter:title', content: 'Agent Definition Language (ADL)'},
+      {name: 'twitter:description', content: 'The open standard for defining AI agent identity, permissions, lifecycle, and compliance.'},
     ],
     navbar: {
       title: 'Agent Definition Language',

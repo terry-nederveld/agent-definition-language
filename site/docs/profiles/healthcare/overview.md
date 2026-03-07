@@ -3,7 +3,7 @@ id: overview
 title: Overview
 sidebar_position: 1
 description: The Healthcare Profile extends ADL for healthcare environments with HIPAA compliance, PHI handling, and clinical safety controls.
-keywords: [adl, healthcare, hipaa, phi, fhir, clinical, compliance]
+keywords: [adl, healthcare ai, hipaa, phi, fhir, clinical ai, agentic ai, ai compliance, medical ai agent, regulated ai, ai safety, responsible ai]
 ---
 
 # Healthcare Profile

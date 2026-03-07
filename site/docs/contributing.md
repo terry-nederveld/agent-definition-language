@@ -3,7 +3,7 @@ id: contributing
 title: Contributing
 sidebar_position: 100
 description: How to contribute to the ADL specification, examples, profiles, and implementations.
-keywords: [adl, contributing, open source, community]
+keywords: [adl, contributing, open source, agentic ai, ai standards, community, ai governance]
 ---
 
 # Contributing to ADL

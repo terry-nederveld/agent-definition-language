@@ -1,3 +1,0 @@
-name: summarize
-description: Summarize a paper
-template: "Summarize the following paper:\n\n{{content}}"

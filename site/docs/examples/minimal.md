@@ -3,7 +3,7 @@ id: minimal
 title: Minimal Example
 sidebar_position: 2
 description: The simplest valid ADL document with only the four required fields.
-keywords: [adl, minimal, example, required fields]
+keywords: [adl, minimal example, agentic ai, ai agent definition, getting started, quickstart, agent manifest]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';

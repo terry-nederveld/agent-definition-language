@@ -3,7 +3,7 @@ id: with-tools
 title: Agent with Tools
 sidebar_position: 3
 description: A calculator agent demonstrating ADL tool definitions with parameters and return types.
-keywords: [adl, tools, example, function calling, calculator]
+keywords: [adl, tools, example, function calling, agentic ai, ai agent tools, mcp, tool use, agent capabilities]
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
