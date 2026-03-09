@@ -202,6 +202,22 @@ sections:
     number: "13"
     title: Profiles
     level: 1
+    subsections:
+      - id: profile-schema-composition
+        number: "13.1"
+        title: Profile Schema Composition
+      - id: multi-profile-composition
+        number: "13.2"
+        title: Multi-Profile Composition
+      - id: profile-dependencies
+        number: "13.3"
+        title: Profile Dependencies
+      - id: profile-registration
+        number: "13.4"
+        title: Profile Registration
+      - id: profile-example
+        number: "13.5"
+        title: Example
 
   - id: processing
     number: "14"
