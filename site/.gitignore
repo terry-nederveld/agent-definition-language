@@ -4,15 +4,9 @@
 # Production
 /build
 
-# Generated files (sync-spec.ts, sync-profiles.ts)
+# Docusaurus
 .docusaurus
 .cache-loader
-/static/examples/*.json
-/_yaml-sources/
-/docs/specification.md
-/docs/examples/index.md
-/docs/profiles/index.md
-/docs/profiles/*/specification.md
 
 # Misc
 .DS_Store
@@ -46,3 +40,19 @@ playwright-state.json
 page-*.png
 page-*.jpeg
 page-*.md
+
+# Debug/snapshot artifacts
+*.snapshot.yaml
+gov-spec-links.yaml
+gov-spec.yaml
+profiles-check.yaml
+profiles-fixed.yaml
+
+# Test screenshots
+/test-screenshots/
+
+# Generated docs (synced from canonical sources at build time)
+/docs/specification.md
+/docs/examples/
+/docs/profiles/
+/static/examples/

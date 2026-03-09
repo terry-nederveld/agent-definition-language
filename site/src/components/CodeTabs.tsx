@@ -2,12 +2,13 @@ import React from "react";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import CodeBlock from "@theme/CodeBlock";
+import { parse, stringify } from 'yaml';
 
 interface CodeTabsProps {
-  /** YAML source code to display */
-  yaml: string;
-  /** Prebuilt JSON (string or parsed object from import) */
-  json: string | object;
+  /** YAML source code to display (primary when provided) */
+  yaml?: string;
+  /** JSON source; derived from YAML when omitted, or primary when yaml is omitted */
+  json?: string | object;
   /** Optional title for the code block */
   title?: string;
   /** Whether to show line numbers */
@@ -15,16 +16,11 @@ interface CodeTabsProps {
 }
 
 /**
- * CodeTabs component displays YAML with prebuilt JSON in tabs.
+ * CodeTabs component displays YAML and JSON in tabs.
  *
- * Usage in MDX:
- * ```mdx
- * import CodeTabs from '@site/src/components/CodeTabs';
- * import yamlContent from '@site/_yaml-sources/examples/production.yaml';
- * import jsonContent from '@site/_yaml-sources/examples/production.json';
- *
- * <CodeTabs yaml={yamlContent} json={jsonContent} title="production.adl" />
- * ```
+ * - When only `yaml` is provided, JSON is derived from YAML.
+ * - When only `json` is provided, YAML is derived from JSON.
+ * - When both are provided, both are used as-is.
  */
 export default function CodeTabs({
   yaml: yamlSource,
@@ -32,11 +28,30 @@ export default function CodeTabs({
   title,
   showLineNumbers = false,
 }: CodeTabsProps): React.ReactElement {
-  const trimmedYaml = yamlSource.trim();
-  // Handle both string and parsed object (JSON imports are auto-parsed)
-  const trimmedJson = typeof jsonSource === 'string'
-    ? jsonSource.trim()
-    : JSON.stringify(jsonSource, null, 2);
+  let trimmedYaml: string;
+  let trimmedJson: string;
+
+  if (yamlSource != null) {
+    trimmedYaml = yamlSource.trim();
+    if (jsonSource != null) {
+      trimmedJson = typeof jsonSource === 'string'
+        ? jsonSource.trim()
+        : JSON.stringify(jsonSource, null, 2);
+    } else {
+      trimmedJson = JSON.stringify(parse(trimmedYaml), null, 2);
+    }
+  } else if (jsonSource != null) {
+    const parsed = typeof jsonSource === 'string'
+      ? JSON.parse(jsonSource)
+      : jsonSource;
+    trimmedJson = typeof jsonSource === 'string'
+      ? jsonSource.trim()
+      : JSON.stringify(parsed, null, 2);
+    trimmedYaml = stringify(parsed, { lineWidth: 120 }).trim();
+  } else {
+    trimmedYaml = '';
+    trimmedJson = '';
+  }
 
   const yamlTitle = title ? `${title}.yaml` : undefined;
   const jsonTitle = title ? `${title}.json` : undefined;
