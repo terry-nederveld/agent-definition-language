@@ -7,12 +7,9 @@ keywords: [adl, tools, example, function calling, agentic ai, ai agent tools, mc
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import calculatorYaml from '@site/_yaml-sources/0.1.0/examples/with-tools.yaml';
-import calculatorJson from '@site/_yaml-sources/0.1.0/examples/with-tools.json';
-import modelYaml from '@site/_yaml-sources/0.1.0/snippets/with-tools/model.yaml';
-import modelJson from '@site/_yaml-sources/0.1.0/snippets/with-tools/model.json';
-import metadataYaml from '@site/_yaml-sources/0.1.0/snippets/with-tools/metadata.yaml';
-import metadataJson from '@site/_yaml-sources/0.1.0/snippets/with-tools/metadata.json';
+import calculatorYaml from '@versions/0.1.0/examples/with-tools.yaml';
+import modelYaml from '@versions/0.1.0/snippets/with-tools/model.yaml';
+import metadataYaml from '@versions/0.1.0/snippets/with-tools/metadata.yaml';
 
 # Agent with Tools Example
 
@@ -24,13 +21,13 @@ Tools should be atomic, well-documented, and have clear parameter schemas. Mark 
 
 ## Document
 
-<CodeTabs yaml={calculatorYaml} json={calculatorJson} title="calculator.adl" />
+<CodeTabs yaml={calculatorYaml} title="calculator.adl" />
 
 ## Key Features
 
 ### Model Configuration
 
-<CodeTabs yaml={modelYaml} json={modelJson} />
+<CodeTabs yaml={modelYaml} />
 
 This declares that the agent requires a model with function calling capability.
 
@@ -49,7 +46,7 @@ Each tool includes:
 
 ### Metadata
 
-<CodeTabs yaml={metadataYaml} json={metadataJson} />
+<CodeTabs yaml={metadataYaml} />
 
 Provides additional context about the agent for discovery and licensing.
 

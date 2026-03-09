@@ -8,55 +8,19 @@ const sidebars: SidebarsConfig = {
       label: 'Specification',
     },
     {
-      type: 'category',
+      type: 'link',
       label: 'Profiles',
-      collapsed: true,
-      items: [
-        'profiles/index',
-        {
-          type: 'category',
-          label: 'Governance Profile',
-          collapsed: true,
-          items: [
-            'profiles/governance/overview',
-            'profiles/governance/specification',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Healthcare Profile',
-          collapsed: true,
-          items: [
-            'profiles/healthcare/overview',
-            'profiles/healthcare/specification',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Financial Profile',
-          collapsed: true,
-          items: [
-            'profiles/financial/overview',
-            'profiles/financial/specification',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Portfolio Profile',
-          collapsed: true,
-          items: [
-            'profiles/portfolio/overview',
-            'profiles/portfolio/specification',
-          ],
-        },
-      ],
+      href: '/profiles',
     },
     {
       type: 'category',
       label: 'Examples',
-      collapsed: true,
+      collapsed: false,
+      link: {
+        type: 'doc',
+        id: 'examples/index',
+      },
       items: [
-        'examples/index',
         'examples/minimal',
         'examples/with-tools',
         'examples/production',

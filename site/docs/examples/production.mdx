@@ -7,18 +7,12 @@ keywords: [adl, production example, agentic ai, ai agent security, agent permiss
 ---
 
 import CodeTabs from '@site/src/components/CodeTabs';
-import productionYaml from '@site/_yaml-sources/0.1.0/examples/production.yaml';
-import productionJson from '@site/_yaml-sources/0.1.0/examples/production.json';
-import identityYaml from '@site/_yaml-sources/0.1.0/snippets/production/identity.yaml';
-import identityJson from '@site/_yaml-sources/0.1.0/snippets/production/identity.json';
-import cryptoIdentityYaml from '@site/_yaml-sources/0.1.0/snippets/production/cryptographic-identity.yaml';
-import cryptoIdentityJson from '@site/_yaml-sources/0.1.0/snippets/production/cryptographic-identity.json';
-import permissionsYaml from '@site/_yaml-sources/0.1.0/snippets/production/permissions.yaml';
-import permissionsJson from '@site/_yaml-sources/0.1.0/snippets/production/permissions.json';
-import securityYaml from '@site/_yaml-sources/0.1.0/snippets/production/security.yaml';
-import securityJson from '@site/_yaml-sources/0.1.0/snippets/production/security.json';
-import runtimeYaml from '@site/_yaml-sources/0.1.0/snippets/production/runtime.yaml';
-import runtimeJson from '@site/_yaml-sources/0.1.0/snippets/production/runtime.json';
+import productionYaml from '@versions/0.1.0/examples/production.yaml';
+import identityYaml from '@versions/0.1.0/snippets/production/identity.yaml';
+import cryptoIdentityYaml from '@versions/0.1.0/snippets/production/cryptographic-identity.yaml';
+import permissionsYaml from '@versions/0.1.0/snippets/production/permissions.yaml';
+import securityYaml from '@versions/0.1.0/snippets/production/security.yaml';
+import runtimeYaml from '@versions/0.1.0/snippets/production/runtime.yaml';
 
 # Production Agent Example
 
@@ -30,7 +24,7 @@ This example uses all major ADL features. Use it as a reference when building pr
 
 ## Document
 
-<CodeTabs yaml={productionYaml} json={productionJson} title="research-assistant.adl" />
+<CodeTabs yaml={productionYaml} title="research-assistant.adl" />
 
 ## Sections Breakdown
 
@@ -38,13 +32,13 @@ This example uses all major ADL features. Use it as a reference when building pr
 
 The agent has a unique identifier and provider information:
 
-<CodeTabs yaml={identityYaml} json={identityJson} />
+<CodeTabs yaml={identityYaml} />
 
 ### Cryptographic Identity
 
 For secure agent identification:
 
-<CodeTabs yaml={cryptoIdentityYaml} json={cryptoIdentityJson} />
+<CodeTabs yaml={cryptoIdentityYaml} />
 
 ### Permissions (Deny-by-Default)
 
@@ -52,19 +46,19 @@ For secure agent identification:
 Network and filesystem access is explicitly defined. Any access not explicitly granted is **denied**.
 :::
 
-<CodeTabs yaml={permissionsYaml} json={permissionsJson} />
+<CodeTabs yaml={permissionsYaml} />
 
 ### Security
 
 Authentication and encryption requirements:
 
-<CodeTabs yaml={securityYaml} json={securityJson} />
+<CodeTabs yaml={securityYaml} />
 
 ### Runtime Configuration
 
 How the agent should execute:
 
-<CodeTabs yaml={runtimeYaml} json={runtimeJson} />
+<CodeTabs yaml={runtimeYaml} />
 
 ## Notes
 

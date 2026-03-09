@@ -196,3 +196,7 @@ proposals/pvt/
 playwright-report/
 test-results/
 playwright/.cache/
+
+# Debug/snapshot artifacts
+*.snapshot.yaml
+gov-record-snapshot.yaml
