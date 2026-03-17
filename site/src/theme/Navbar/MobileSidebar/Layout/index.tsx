@@ -11,8 +11,8 @@ function FallbackNav() {
   return (
     <ul className="menu__list">
       <li className="menu__list-item">
-        <Link className="menu__link" to="/specification">
-          Specification v0.1.0
+        <Link className="menu__link" to="/spec">
+          Specification
         </Link>
       </li>
       <li className="menu__list-item">
@@ -21,7 +21,7 @@ function FallbackNav() {
         </Link>
       </li>
       <li className="menu__list-item">
-        <Link className="menu__link" to="/examples">
+        <Link className="menu__link" to="/spec/examples">
           Examples
         </Link>
       </li>
@@ -55,6 +55,9 @@ export default function NavbarMobileSidebarLayout({
       {header}
       <div className="navbar-sidebar__search">
         <SearchBar />
+      </div>
+      <div className="navbar-sidebar__primary-menu">
+        {primaryMenu}
       </div>
       <div className="navbar-sidebar__nav">
         {secondaryMenuState.content ?? <FallbackNav />}

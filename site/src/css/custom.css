@@ -256,6 +256,13 @@ body {
     padding: 0.5rem;
   }
 
+  /* Version dropdown and other navbar items in mobile sidebar */
+  .navbar-sidebar__primary-menu {
+    flex-shrink: 0;
+    padding: 0.5rem var(--ifm-navbar-padding-horizontal);
+    border-bottom: 1px solid var(--adl-border-subtle);
+  }
+
   /* Prevent search from stretching */
   .navbar-sidebar__search {
     flex-shrink: 0;
