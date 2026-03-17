@@ -3,6 +3,7 @@
  * A sleek, minimal design inspired by the future of AI agents
  */
 
+
 /* Import Inter and JetBrains Mono fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
@@ -253,6 +254,13 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 0.5rem;
+  }
+
+  /* Version dropdown and other navbar items in mobile sidebar */
+  .navbar-sidebar__primary-menu {
+    flex-shrink: 0;
+    padding: 0.5rem var(--ifm-navbar-padding-horizontal);
+    border-bottom: 1px solid var(--adl-border-subtle);
   }
 
   /* Prevent search from stretching */

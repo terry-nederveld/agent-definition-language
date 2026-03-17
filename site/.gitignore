@@ -54,3 +54,7 @@ profiles-fixed.yaml
 # Generated docs (profile overviews are synced at build time)
 /docs/profiles/
 /static/examples/
+
+# Schema-copy plugin output
+/static/draft/
+/static/draft.*/
