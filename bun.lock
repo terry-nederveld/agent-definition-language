@@ -2,7 +2,11 @@
   "lockfileVersion": 1,
   "configVersion": 1,
   "workspaces": {
-    "": {},
+    "": {
+      "devDependencies": {
+        "yaml": "^2.7.0",
+      },
+    },
     "packages/adl-agent": {
       "name": "@adl-spec/agent",
       "version": "0.1.0",
