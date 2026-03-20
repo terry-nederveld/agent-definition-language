@@ -18,11 +18,10 @@
     "bump": "bun run scripts/bump-version.ts"
   },
   "dependencies": {
-    "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1",
+    "@adl-spec/core": "workspace:*",
+    "@adl-spec/generator": "workspace:*",
     "chalk": "^5.4.1",
-    "commander": "^13.1.0",
-    "yaml": "^2.7.0"
+    "commander": "^13.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.4",

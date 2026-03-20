@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { registerValidateCommand } from "./commands/validate.js";
 import { registerConvertCommand } from "./commands/convert.js";
 import { registerInitCommand } from "./commands/init.js";
+import { registerGenerateCommand } from "./commands/generate.js";
 
 const program = new Command();
 
@@ -14,5 +15,6 @@ program
 registerValidateCommand(program);
 registerConvertCommand(program);
 registerInitCommand(program);
+registerGenerateCommand(program);
 
 program.parse();
