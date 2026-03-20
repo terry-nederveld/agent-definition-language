@@ -182,7 +182,7 @@ export function renderAgent(ir: AgentIR): string {
       lines.push("  {");
       lines.push(`    name: "${tool.name}",`);
       lines.push(
-        `    description: "${tool.description.replace(/"/g, '\\"')}",`,
+        `    description: "${tool.description.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}",`,
       );
       lines.push('    input_schema: {');
       lines.push('      type: "object" as const,');

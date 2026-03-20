@@ -100,7 +100,7 @@ export function renderAgent(ir: AgentIR): string {
   lines.push(`export class ${pascalCase(ir.identity.name)}Agent {`);
   lines.push(`  readonly name = "${ir.identity.name}";`);
   lines.push(
-    `  readonly description = "${ir.identity.description.replace(/"/g, '\\"')}";`,
+    `  readonly description = "${ir.identity.description.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}";`,
   );
   lines.push(`  readonly version = "${ir.identity.version}";`);
 
@@ -150,7 +150,7 @@ export function renderAgent(ir: AgentIR): string {
     lines.push("      {");
     lines.push(`        name: "${tool.name}",`);
     lines.push(
-      `        description: "${tool.description.replace(/"/g, '\\"')}",`,
+      `        description: "${tool.description.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}",`,
     );
     lines.push(`        readOnly: ${tool.readOnly},`);
     lines.push(`        idempotent: ${tool.idempotent},`);
