@@ -4,6 +4,9 @@
 **Status:** Draft
 **ADL Version:** 0.1.0
 **Affects:** `versions/0.1.0/spec.md`, `versions/0.1.0/schema.json`, `profiles/` (new `runtime/gemini-enterprise` vendor profile recommended)
+**Companion proposals:** `2026-05-18-runtime-operations-profile.md` (defines `urn:adl:profile:runtime-ops:1.0`, which is where most of this proposal's recommendations land); `2026-05-18-microsoft-governance-toolkit-interop.md`
+
+> **Note (2026-05-18, post-review):** During review, the universal-vs-vendor-specific split in this proposal was extracted into a new **Runtime Operations Profile** proposal (`2026-05-18-runtime-operations-profile.md`). Recommendations for G1, G2, G4, and G7 below were originally framed as core spec additions; they are now scoped to the Runtime Operations Profile. The remaining recommendations (G3, G5, G6) are unchanged. Section 5 below has been updated to reflect the new placements.
 
 ---
 
@@ -110,6 +113,7 @@ A minimal Gemini Enterprise agent — "Invoice Processor" deployed via Agent Run
     "encryption": { "in_transit": { "required": true, "min_version": "TLS1.3" } }
   },
   "profiles": [
+    "urn:adl:profile:runtime-ops:1.0",
     "urn:adl:profile:registry:1.0",
     "urn:adl:profile:governance:1.0",
     "https://google.com/adl/gemini-enterprise/v1"
@@ -118,17 +122,27 @@ A minimal Gemini Enterprise agent — "Invoice Processor" deployed via Agent Run
     "catalog_id": "urn:acme:agents:invoice-processor:2.0.0",
     "visibility": "internal"
   },
+  "execution_model": "long_running",
+  "max_session_duration_sec": 604800,
+  "trigger": {
+    "type": "event",
+    "source": "pubsub://acme-events/invoices.received"
+  },
+  "memory": {
+    "backend": "long_term",
+    "store": { "type": "memory_bank", "uri": "vertex://acme/memory" },
+    "retention": { "max_days": 30 },
+    "scope": "tenant"
+  },
+  "streaming": {
+    "enabled": true,
+    "protocols": ["websocket"],
+    "modalities": ["text", "audio"]
+  },
+  "protocols": [
+    { "name": "mcp", "version": "2025-06-18", "role": "client" }
+  ],
   "x_google_gemini_enterprise": {
-    "runtime_class": "long_running",
-    "memory_bank": {
-      "enabled": true,
-      "profile": "conversational",
-      "retention_days": 30
-    },
-    "streaming": {
-      "protocol": "websocket",
-      "modalities": ["text", "audio"]
-    },
     "gateway": "https://gateway.acme.example.com"
   }
 }
@@ -144,38 +158,31 @@ The `x_google_gemini_enterprise` member (or, after the vendor-extensions proposa
 
 **Observation.** Gemini Enterprise distinguishes three runtime classes: request/response, **long-running** (multi-day workflows with persistent state), and **batch/event-driven** (triggered by BigQuery / Pub/Sub). ADL `runtime` cannot express the runtime class, the maximum runtime duration (`runtime.tool_invocation.timeout_ms` applies per tool, not per agent), the trigger event source, or whether the agent maintains state across invocations.
 
-**Recommendation.** Add `runtime.execution_model` with values `request_response | long_running | batch | event_driven`, and `runtime.trigger` (object) carrying event source declarations:
+**Recommendation.** Add `execution_model` (enum: `request_response | long_running | batch | event_driven`), `max_session_duration_sec`, and `trigger` (object) **to the Runtime Operations Profile** (`urn:adl:profile:runtime-ops:1.0`), not core. See the runtime-operations-profile proposal §4.1–4.3 for the canonical definitions.
 
 ```json
 {
-  "runtime": {
-    "execution_model": "long_running",
-    "max_session_duration_sec": 604800,
-    "trigger": {
-      "type": "event",
-      "source": "pubsub://acme-events/invoices.received"
-    }
+  "profiles": ["urn:adl:profile:runtime-ops:1.0"],
+  "execution_model": "long_running",
+  "max_session_duration_sec": 604800,
+  "trigger": {
+    "type": "event",
+    "source": "pubsub://acme-events/invoices.received"
   }
 }
 ```
 
-See also: AWS Bedrock Agents, Azure AI Foundry agents, and AutoGen long-running orchestrations have the same need. This is not Gemini-specific.
+See also: AWS Bedrock Agents, Azure AI Foundry agents, and AutoGen long-running orchestrations have the same need. This is not Gemini-specific — which is why the home is a sibling profile, not core.
 
 ### G2 — Agent memory
 
 **Observation.** Memory is a first-class concept in every modern agent runtime (Memory Bank in Gemini, episodic memory in Microsoft's toolkit, threads in OpenAI Assistants, AgentMemory in CrewAI, MemorySaver in LangGraph). ADL has zero memory primitives. This is the largest concrete gap.
 
-**Recommendation.** Add a top-level `memory` object:
+**Recommendation.** Add a top-level `memory` object **in the Runtime Operations Profile** (`urn:adl:profile:runtime-ops:1.0`, §4.4). Originally proposed for core; moved to the profile because memory is an architectural commitment that not every ADL document (e.g., A2A Agent Cards) needs, and architectural opinions belong outside core.
 
-| Member             | Type    | Required | Description |
-|--------------------|---------|----------|-------------|
-| backend            | string  | OPTIONAL | One of: `none`, `ephemeral`, `session`, `long_term` |
-| store              | object  | OPTIONAL | Backing store reference (`type`, `uri`) |
-| retention          | object  | OPTIONAL | `max_days`, `policy_uri` (same shape as `data_classification.retention`) |
-| scope              | string  | OPTIONAL | One of: `agent`, `user`, `session`, `tenant` |
-| pii_handling       | object  | OPTIONAL | `redact: bool`, `categories_excluded: array` |
+The profile defines `memory` with `backend` (REQUIRED enum: `none | ephemeral | session | long_term`), `store`, `retention` (same shape as `data_classification.retention`), `scope` (`agent | user | session | tenant`), and `pii_handling` (`redact`, `categories_excluded`). Deny-by-default semantics — when omitted, no state may be persisted — match `permissions` (core Section 9.1).
 
-`memory` is OPTIONAL. When omitted, the agent declares no memory; runtimes **MUST NOT** persist agent state without an explicit `memory` declaration. The deny-by-default symmetry with `permissions` (Section 9.1) is intentional.
+See the runtime-operations-profile proposal §4.4 for the canonical definition.
 
 ### G3 — Deployment / gateway binding
 
@@ -187,23 +194,12 @@ See also: AWS Bedrock Agents, Azure AI Foundry agents, and AutoGen long-running 
 
 **Observation.** `runtime.output_handling.streaming` is a boolean. It cannot express whether the agent supports SSE, WebSocket, gRPC bidirectional, or WebRTC, nor which modalities (text-only, audio, video).
 
-**Recommendation.** Expand `runtime.output_handling.streaming` from boolean to a polymorphic value:
+**Recommendation.** Two coordinated changes:
 
-```json
-{
-  "runtime": {
-    "output_handling": {
-      "streaming": {
-        "enabled": true,
-        "protocols": ["sse", "websocket"],
-        "modalities": ["text", "audio"]
-      }
-    }
-  }
-}
-```
+1. **Core (small):** widen `runtime.output_handling.streaming` (Section 11.2) from boolean to `boolean | object` for backwards compatibility. `true` is equivalent to `{ "enabled": true, "protocols": ["sse"], "modalities": ["text"] }`; `false` is equivalent to `{ "enabled": false }`. The existing boolean form remains valid.
+2. **Runtime Operations Profile (§4.5):** define the structured form's full schema (`enabled`, `protocols[]` — sse/websocket/grpc_bidi/webrtc, `modalities[]` — text/audio/video/image). When the profile is declared, the structured form supersedes the boolean.
 
-For backwards compatibility, `true` is equivalent to `{ "enabled": true, "protocols": ["sse"], "modalities": ["text"] }` and `false` to `{ "enabled": false }`. The change is additive in shape, not in member name; the existing boolean form remains valid.
+This split keeps core minimal (one polymorphic widening) while the expressive vocabulary evolves in the profile.
 
 ### G5 — Prompt-injection defense declaration
 
@@ -227,40 +223,40 @@ This is intentionally out of scope for this proposal but should be tracked in `s
 
 **Observation.** Gemini announced **Agent Payment Protocol (AP2)** alongside the platform. Like MCP and A2A, AP2 is a protocol an agent may conform to. ADL has no general mechanism to declare "this agent speaks protocol X."
 
-**Recommendation.** Add `metadata.protocols` (array of objects) for declarative protocol conformance:
+**Recommendation.** Add `protocols[]` **to the Runtime Operations Profile** (§4.6), not core metadata. Originally proposed for `metadata.protocols`; moved because protocol conformance is operationally significant (affects runtime provisioning, gateway routing, capability negotiation) rather than purely descriptive.
 
 ```json
 {
-  "metadata": {
-    "protocols": [
-      { "name": "mcp", "version": "2025-06-18", "role": "client" },
-      { "name": "a2a", "version": "1.0", "role": "server" },
-      { "name": "ap2", "version": "1.0", "role": "client" }
-    ]
-  }
+  "profiles": ["urn:adl:profile:runtime-ops:1.0"],
+  "protocols": [
+    { "name": "mcp", "version": "2025-06-18", "role": "client" },
+    { "name": "a2a", "version": "1.0", "role": "server" },
+    { "name": "ap2", "version": "1.0", "role": "client" }
+  ]
 }
 ```
 
-Each entry **MUST** contain `name` (string) and **MAY** contain `version` (string), `role` (`client | server | both`), and `endpoint` (URI). This is a lightweight addition that scales to future protocols without further spec changes.
+Each entry **MUST** contain `name` and **MAY** contain `version`, `role` (`client | server | both`), `endpoint`. Vendor-defined names **SHOULD** use reverse-domain notation. This is a lightweight addition that scales to future protocols without further spec changes. See the runtime-operations-profile proposal §4.6.
 
 ---
 
 ## 5. Proposed Spec Additions (Summary)
 
-| Change | Section | Type | Priority |
-|--------|---------|------|----------|
-| Add `runtime.execution_model` enum | 11 | Additive | High |
-| Add `runtime.max_session_duration_sec` | 11 | Additive | High |
-| Add `runtime.trigger` object | 11 (new 11.5) | Additive | Medium |
-| Add top-level `memory` object | New Section 11.5 or new Section | Additive | **High** |
-| Expand `runtime.output_handling.streaming` to polymorphic | 11.2 | Backwards-compatible widening | Medium |
-| Add `security.prompt_defense` | 10 (new 10.5) | Additive | Medium |
-| Add `metadata.protocols` array | 12 (new 12.6) | Additive | Medium |
+Reflects the 2026-05-18 reassignment to the Runtime Operations Profile.
+
+| Change | Location | Type | Priority |
+|--------|----------|------|----------|
+| Polymorphic widening of `runtime.output_handling.streaming` | **Core §11.2** | Backwards-compatible widening | Medium |
+| Add `security.prompt_defense` | **Core §10 (new §10.5)** | Additive | Medium |
+| Add `execution_model`, `max_session_duration_sec`, `trigger` | **Runtime Operations Profile §4.1–4.3** | New profile members | High |
+| Add `memory` (top-level under profile) | **Runtime Operations Profile §4.4** | New profile member | **High** |
+| Add structured `streaming` form | **Runtime Operations Profile §4.5** | New profile member | Medium |
+| Add `protocols[]` | **Runtime Operations Profile §4.6** | New profile member | Medium |
 | Track Composition Profile in roadmap | `standardization/roadmap.md` | Roadmap | Low for spec, high for ecosystem |
 | Author `runtime/gemini-enterprise` vendor profile | `profiles/runtime/gemini-enterprise/` | New profile | Depends on vendor-extensions proposal |
-| Document deployment-time concerns in Section 15 | 15 | Clarification | Low |
+| Document deployment-time concerns in Section 15 | Core §15 | Clarification | Low |
 
-The seven gaps map cleanly to additive changes — none require a major version bump. Memory (G2) is the highest-priority addition because it is universal across runtimes, not Gemini-specific.
+Net core spec impact is now small (one polymorphic widening + one new security subsection). The bulk of the surface area lands in the Runtime Operations Profile, which evolves independently of core SemVer. All changes remain additive — no major version bump for the 7 gaps. Memory (G2) is still the highest-priority addition because it is universal across runtimes, not Gemini-specific.
 
 ---
 

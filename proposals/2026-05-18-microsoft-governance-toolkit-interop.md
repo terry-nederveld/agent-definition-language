@@ -4,6 +4,9 @@
 **Status:** Draft
 **ADL Version:** 0.1.0
 **Affects:** `versions/0.1.0/spec.md`, `versions/0.1.0/schema.json`, `profiles/governance/1.0/profile.md`, `profiles/governance/1.0/schema.json`, `profiles/registry/1.0/profile.md` (potentially), new `runtime/microsoft-agt` vendor profile recommended
+**Companion proposals:** `2026-05-18-runtime-operations-profile.md` (defines `urn:adl:profile:runtime-ops:1.0`, the new home for G5); `2026-05-18-gemini-enterprise-interop.md`
+
+> **Note (2026-05-18, post-review):** During review, the universal-vs-vendor-specific split surfaced by this proposal and the Gemini proposal was extracted into a new **Runtime Operations Profile** (`2026-05-18-runtime-operations-profile.md`). Recommendation G5 (`policy_references`) was originally framed as a `security` core addition; it now lives in the Runtime Operations Profile §4.7. All other recommendations in this proposal are unchanged — they remain in core or the Governance Profile as originally proposed. Section 5 below has been updated to reflect the new placement.
 
 ---
 
@@ -190,29 +193,28 @@ Trust scoring is governance, not core security; placing it in the Governance Pro
 
 **Observation.** AGT's `PolicyDocument` (rules with `condition`, `action`, `priority`) is declarative policy that AGT evaluates at every action. ADL `permissions` describes *outcomes* (this host is allowed, this command is denied) but not *rules with priority and conditions*. The two are complementary: ADL permissions are the static policy floor; AGT PolicyDocument is the dynamic policy that may further constrain.
 
-**Recommendation.** Do **not** absorb PolicyDocument into ADL `permissions`. ADL's deny-by-default model is intentionally static and is the right abstraction for portable declarations. Instead, add `security.policy_references` (array of URIs) so an ADL document can declare external policy documents that authoritative runtimes evaluate:
+**Recommendation.** Do **not** absorb PolicyDocument into ADL `permissions`. ADL's deny-by-default model is intentionally static and is the right abstraction for portable declarations. Instead, add `policy_references` (array of URIs) **in the Runtime Operations Profile** (`urn:adl:profile:runtime-ops:1.0`, §4.7) so an ADL document can declare external policy documents that authoritative runtimes evaluate. Originally proposed for `security.policy_references` in core; moved to the profile because external runtime policy evaluation is an operational concern, not a security posture declaration. (Core `permissions` remains the static floor that referenced policies may restrict but never expand — see RTOPS-09 in the profile proposal.)
 
 ```json
 {
-  "security": {
-    "policy_references": [
-      {
-        "type": "agt_policy_document",
-        "uri": "https://policy.acme.example.com/contract-reviewer/policy.yaml",
-        "media_type": "application/vnd.microsoft.agt-policy+yaml",
-        "checksum": { "algorithm": "SHA-256", "value": "..." }
-      },
-      {
-        "type": "cedar",
-        "uri": "https://policy.acme.example.com/contract-reviewer/policy.cedar",
-        "media_type": "application/vnd.cedar+text"
-      }
-    ]
-  }
+  "profiles": ["urn:adl:profile:runtime-ops:1.0"],
+  "policy_references": [
+    {
+      "type": "agt_policy_document",
+      "uri": "https://policy.acme.example.com/contract-reviewer/policy.yaml",
+      "media_type": "application/vnd.microsoft.agt-policy+yaml",
+      "checksum": { "algorithm": "SHA-256", "value": "..." }
+    },
+    {
+      "type": "cedar",
+      "uri": "https://policy.acme.example.com/contract-reviewer/policy.cedar",
+      "media_type": "application/vnd.cedar+text"
+    }
+  ]
 }
 ```
 
-This pattern also accommodates OPA/Rego, Cedar (AWS Verified Permissions), and future policy languages. Each entry **MUST** contain `type` and `uri`; `media_type` and `checksum` are RECOMMENDED.
+This pattern also accommodates OPA/Rego, Cedar (AWS Verified Permissions), XACML, and future policy languages. Each entry **MUST** contain `type` and `uri`; `media_type` and `checksum` are RECOMMENDED. See the runtime-operations-profile proposal §4.7 for the canonical definition.
 
 ### G6 — Evidence artifact declarations
 
@@ -279,7 +281,7 @@ This is symmetrical to `risk_classification.assessed_by`/`assessed_at` already p
 | Add `public_key.not_before`, `public_key.not_after` | Core §6.3 | Additive | High |
 | Add Governance Profile `trust` object | Governance Profile new §2.x | Additive | Medium |
 | Add `lifecycle.rotation_policy` | Core §5.6 | Additive | Medium |
-| Add `security.policy_references[]` | Core §10 (new §10.5) | Additive | High |
+| Add `policy_references[]` | **Runtime Operations Profile §4.7** | New profile member | High |
 | Add `evidence_bundle_ref` sibling to `governance_record_ref` | Governance Profile | Additive | Medium |
 | Add Governance Profile `runtime_controls` (kill_switch, execution_ring, isolation_level) | Governance Profile new §2.x | Additive | Medium |
 | Add `risk_classification.red_team_assessment` | Governance Profile §2.3 | Additive | Low |
