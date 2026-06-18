@@ -1,68 +1,44 @@
-# ADL 0.3 Expansion Model
+# ADL Expansion Model — optional overrides for the review package's
+# Expansion Explorer (scripts/build-review.ts).
 #
-# Source of truth for the interactive "expansion overlay" in the v0.3 review
-# package (scripts/build-review.ts). It captures how each profile expands the
-# core ADL document: which top-level members it adds, which core members it
-# tightens, and — for the governance profile — how conformance tiers escalate
-# a member's requirement level.
+# The explorer auto-discovers everything it can:
+#   - Core top-level members come from the version's schema.json.
+#   - Each profile's added members come from profiles/manifest.yaml
+#     (the "additional-members" section).
 #
-# Derived from:
-#   - versions/draft/schema.json        (core top-level members + required[])
-#   - profiles/<name>/1.0/profile.md    (Additional Members + Validation Rules)
+# Auto-discovery cannot know a member's *requirement level* (required / optional /
+# tier-conditional) or a core member a profile *tightens* — that detail lives in
+# profile prose. This file supplies it, keyed by profile id. A profile with no
+# entry here still appears in the explorer; its members just show a neutral
+# "see profile" badge until enriched.
 #
-# Keep this in sync when the core schema or a profile's required members change.
+# Per profile (all keys optional):
+#   color        badge/accent colour (else a palette colour is assigned)
+#   adds         requirement per added member: required | optional | tiered
+#   core_changes core members this profile tightens: { name, to, note }
+#                  to: required (OPTIONAL -> REQUIRED) | tightened (note only)
+#   tiers        conformance tiers, when the profile is tier-conditional
+#   tier_matrix  per-member requirement by tier: may | should | must
+#
+# Keep in sync when a profile's required members or tier rules change.
 
-# Core top-level members (versions/draft/schema.json). `required: true` marks the
-# members listed in the schema's top-level `required` array.
-core:
-  members:
-    - { name: adl_spec, required: true }
-    - { name: name, required: true }
-    - { name: description, required: true }
-    - { name: version, required: true }
-    - { name: data_classification, required: true }
-    - { name: lifecycle, required: false }
-    - { name: id, required: false }
-    - { name: provider, required: false }
-    - { name: cryptographic_identity, required: false }
-    - { name: model, required: false }
-    - { name: system_prompt, required: false }
-    - { name: tools, required: false }
-    - { name: resources, required: false }
-    - { name: prompts, required: false }
-    - { name: permissions, required: false }
-    - { name: security, required: false }
-    - { name: runtime, required: false }
-    - { name: metadata, required: false }
-    - { name: profiles, required: false }
-    - { name: extensions, required: false }
-
-# Each profile overlays the core. `adds` are new top-level members the profile
-# defines; `core_changes` are core members the profile tightens. `requirement`:
-#   required  -> MUST be present whenever the profile is declared
-#   optional  -> MAY be present
-#   tiered    -> requirement depends on autonomy.tier (governance only); see `tiers`
 profiles:
-  - id: governance
-    title: Governance
-    identifier: "urn:adl:profile:governance:1.0"
+  governance:
     color: "#7c3aed"
-    has_tiers: true
     adds:
-      - { name: compliance_framework, requirement: required }
-      - { name: autonomy, requirement: required }
-      - { name: risk_classification, requirement: optional }
-      - { name: human_oversight, requirement: tiered }
-      - { name: incident_response, requirement: tiered }
-      - { name: evaluation_attestation, requirement: tiered }
-      - { name: disclosure, requirement: tiered }
-      - { name: safety_reviews, requirement: optional }
-      - { name: governance, requirement: optional }
-      - { name: governance_record_ref, requirement: tiered }
-      - { name: anomaly_baseline, requirement: tiered }
+      compliance_framework: required
+      autonomy: required
+      risk_classification: optional
+      human_oversight: tiered
+      incident_response: tiered
+      evaluation_attestation: tiered
+      disclosure: tiered
+      safety_reviews: optional
+      governance: optional
+      governance_record_ref: tiered
+      anomaly_baseline: tiered
     core_changes:
       - { name: lifecycle, to: required, note: "GOV-06: lifecycle MUST be present." }
-    # Conformance tiers (profile.md Section 5.1). Levels: may | should | must.
     tiers:
       - { id: 1, name: Supervised }
       - { id: 2, name: "Conditional Autonomy" }
@@ -77,47 +53,33 @@ profiles:
       governance_record_ref:  { 1: may,   2: may,    3: should }
       anomaly_baseline:       { 1: may,   2: should, 3: must }
 
-  - id: portfolio
-    title: Portfolio
-    identifier: "urn:adl:profile:portfolio:1.0"
+  portfolio:
     color: "#0891b2"
-    has_tiers: false
     adds:
-      - { name: relationships, requirement: optional }
-      - { name: domain, requirement: optional }
-    core_changes: []
+      relationships: optional
+      domain: optional
 
-  - id: registry
-    title: Registry
-    identifier: "urn:adl:profile:registry:1.0"
+  registry:
     color: "#ca8a04"
-    has_tiers: false
     adds:
-      - { name: registry, requirement: required }
-    core_changes: []
+      registry: required
 
-  - id: financial
-    title: Financial
-    identifier: "urn:adl:profile:financial:1.0"
+  financial:
     color: "#16a34a"
-    has_tiers: false
     adds:
-      - { name: financial_data_handling, requirement: required }
-      - { name: transaction_controls, requirement: optional }
-      - { name: regulatory_scope, requirement: optional }
-      - { name: financial_risk_management, requirement: optional }
+      financial_data_handling: required
+      transaction_controls: optional
+      regulatory_scope: optional
+      financial_risk_management: optional
     core_changes:
       - { name: data_classification, to: tightened, note: "MUST carry a `financial` sub-object; `categories` MUST include `financial`." }
 
-  - id: healthcare
-    title: Healthcare
-    identifier: "urn:adl:profile:healthcare:1.0"
+  healthcare:
     color: "#dc2626"
-    has_tiers: false
     adds:
-      - { name: hipaa_compliance, requirement: required }
-      - { name: phi_handling, requirement: required }
-      - { name: clinical_safety, requirement: optional }
-      - { name: interoperability, requirement: optional }
+      hipaa_compliance: required
+      phi_handling: required
+      clinical_safety: optional
+      interoperability: optional
     core_changes:
       - { name: data_classification, to: tightened, note: "MUST carry a `healthcare` sub-object; `categories` MUST include `phi`." }
