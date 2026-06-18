@@ -6,10 +6,12 @@
     "typecheck": "bun run --filter '*' typecheck",
     "test": "bun run --filter '*' test",
     "check": "bun run build && bun run typecheck && bun run test",
+    "review": "bun run scripts/build-review.ts",
     "postinstall": "lefthook install"
   },
   "devDependencies": {
     "lefthook": "^1.11.0",
+    "marked": "^18.0.5",
     "yaml": "^2.7.0"
   }
 }
