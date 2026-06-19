@@ -202,7 +202,7 @@ profiles:
     title: "Financial Profile Specification"
     description: "PCI-DSS, SOX, GLBA, MiFID II, and AML/KYC compliance"
     adl_compatibility: "0.2.x"
-    schema: null
+    schema: schema.json
     dependencies: []
     overview: "The Financial Profile extends ADL for financial services with PCI-DSS, SOX, GLBA, and MiFID II compliance."
     keywords: [adl, financial specification, pci-dss, sox, glba, mifid, aml, agentic ai, financial ai compliance, fintech ai, ai risk management]
@@ -247,7 +247,7 @@ profiles:
     title: "Healthcare Profile Specification"
     description: "HIPAA compliance, PHI handling, clinical safety, and FHIR interoperability"
     adl_compatibility: "0.2.x"
-    schema: null
+    schema: schema.json
     dependencies: []
     overview: "The Healthcare Profile extends ADL for healthcare environments with HIPAA compliance, PHI handling, and clinical safety controls."
     keywords: [adl, healthcare specification, hipaa, phi, fhir, clinical ai, agentic ai, healthcare ai compliance, medical ai, ai safety]

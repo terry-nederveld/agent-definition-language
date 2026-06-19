@@ -245,6 +245,21 @@ for (const p of profilesManifest.profiles || []) {
       "", conditional, rows,
       (name) => coreProps.has(name) || name === "profiles", // only profile-added members
     );
+    // A profile may tighten a core member (e.g. data_classification) by adding
+    // its own sub-objects. Those nested additions are skipped above as "core",
+    // so emit the profile-specific sub-objects explicitly.
+    const dcProf = schema.properties?.data_classification?.properties;
+    if (dcProf) {
+      const coreDc = new Set(Object.keys(coreSchema.$defs?.data_classification?.properties || {}));
+      const added = Object.fromEntries(Object.entries(dcProf).filter(([k]) => !coreDc.has(k)));
+      if (Object.keys(added).length) {
+        const dcSection = secByMember.get("data_classification") || "";
+        walkSchema(
+          { properties: added, required: schema.properties.data_classification.required || [] },
+          "data_classification.", source, () => dcSection, "", conditional, rows,
+        );
+      }
+    }
   } else {
     const md = readFileSync(join(ROOT, "profiles", p.id, p.version, "profile.md"), "utf8");
     rows.push(...parseProseProfile(md, source, reqOverride));

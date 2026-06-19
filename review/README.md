@@ -28,9 +28,8 @@ One sheet, one row per field across the core and every profile:
   `financial_data_handling.pci_scope.in_scope`, `tools[].name`).
 - **Source** is `Core` or the profile name (colour-coded); filter/sort it to
   slice the data.
-- Fields come from each spec's `schema.json` where present (core, governance,
-  portfolio, registry — full types, enums, defaults, required); profiles that are
-  prose-only (financial, healthcare) are read from their `profile.md` member
+- Fields come from each spec's `schema.json` (full types, enums, defaults,
+  required); a profile with no schema falls back to its `profile.md` member
   tables. Tier-gated governance members show as `CONDITIONAL`.
 - Open in Excel or Google Sheets; reviewers right-click any cell to add a comment.
 
