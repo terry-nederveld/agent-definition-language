@@ -1,15 +1,21 @@
 {
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "bun run scripts/build-all.ts",
     "typecheck": "bun run --filter '*' typecheck",
     "test": "bun run --filter '*' test",
     "check": "bun run build && bun run typecheck && bun run test",
-    "postinstall": "lefthook install"
+    "review": "bun run scripts/build-review.ts",
+    "postinstall": "lefthook install",
+    "fields": "bun run scripts/build-fields.ts"
   },
   "devDependencies": {
+    "exceljs": "^4.4.0",
     "lefthook": "^1.11.0",
+    "marked": "^18.0.5",
     "yaml": "^2.7.0"
   }
 }

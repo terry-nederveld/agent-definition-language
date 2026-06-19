@@ -1,0 +1,85 @@
+# ADL Expansion Model — optional overrides for the review package's
+# Expansion Explorer (scripts/build-review.ts).
+#
+# The explorer auto-discovers everything it can:
+#   - Core top-level members come from the version's schema.json.
+#   - Each profile's added members come from profiles/manifest.yaml
+#     (the "additional-members" section).
+#
+# Auto-discovery cannot know a member's *requirement level* (required / optional /
+# tier-conditional) or a core member a profile *tightens* — that detail lives in
+# profile prose. This file supplies it, keyed by profile id. A profile with no
+# entry here still appears in the explorer; its members just show a neutral
+# "see profile" badge until enriched.
+#
+# Per profile (all keys optional):
+#   color        badge/accent colour (else a palette colour is assigned)
+#   adds         requirement per added member: required | optional | tiered
+#   core_changes core members this profile tightens: { name, to, note }
+#                  to: required (OPTIONAL -> REQUIRED) | tightened (note only)
+#   tiers        conformance tiers, when the profile is tier-conditional
+#   tier_matrix  per-member requirement by tier: may | should | must
+#
+# Keep in sync when a profile's required members or tier rules change.
+
+profiles:
+  governance:
+    color: "#7c3aed"
+    adds:
+      compliance_framework: required
+      autonomy: required
+      risk_classification: optional
+      human_oversight: tiered
+      incident_response: tiered
+      evaluation_attestation: tiered
+      disclosure: tiered
+      safety_reviews: optional
+      governance: optional
+      governance_record_ref: tiered
+      anomaly_baseline: tiered
+    core_changes:
+      - { name: lifecycle, to: required, note: "GOV-06: lifecycle MUST be present." }
+    tiers:
+      - { id: 1, name: Supervised }
+      - { id: 2, name: "Conditional Autonomy" }
+      - { id: 3, name: "Full Autonomy" }
+    tier_matrix:
+      compliance_framework:   { 1: must,  2: must,   3: must }
+      autonomy:               { 1: must,  2: must,   3: must }
+      human_oversight:        { 1: may,   2: must,   3: must }
+      incident_response:      { 1: may,   2: must,   3: must }
+      disclosure:             { 1: may,   2: must,   3: must }
+      evaluation_attestation: { 1: may,   2: may,    3: must }
+      governance_record_ref:  { 1: may,   2: may,    3: should }
+      anomaly_baseline:       { 1: may,   2: should, 3: must }
+
+  portfolio:
+    color: "#0891b2"
+    adds:
+      relationships: optional
+      domain: optional
+
+  registry:
+    color: "#ca8a04"
+    adds:
+      registry: required
+
+  financial:
+    color: "#16a34a"
+    adds:
+      financial_data_handling: required
+      transaction_controls: optional
+      regulatory_scope: optional
+      financial_risk_management: optional
+    core_changes:
+      - { name: data_classification, to: tightened, note: "MUST carry a `financial` sub-object; `categories` MUST include `financial`." }
+
+  healthcare:
+    color: "#dc2626"
+    adds:
+      hipaa_compliance: required
+      phi_handling: required
+      clinical_safety: optional
+      interoperability: optional
+    core_changes:
+      - { name: data_classification, to: tightened, note: "MUST carry a `healthcare` sub-object; `categories` MUST include `phi`." }
