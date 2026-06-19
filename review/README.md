@@ -4,6 +4,36 @@ A reusable generator that turns a core spec version plus its profiles into a
 single, self-contained HTML file for sharing with reviewers who want to
 **explore** the spec and **leave inline comments**.
 
+Two outputs, same auto-discovered inputs:
+
+- **Field dictionary** (`bun run fields`) — a `.xlsx` listing every field, for
+  reviewers who want the data in a spreadsheet they can filter, sort, and
+  comment on cell-by-cell. **Start here for a field-by-field review.**
+- **Reading package** (`bun run review`) — a self-contained HTML build of the
+  full prose with an interactive expansion explorer and inline annotations.
+
+## Field dictionary (Excel)
+
+```bash
+bun install            # first time only
+bun run fields         # -> review/adl-<version>-fields.xlsx
+bun run fields 0.2.0   # a specific version
+```
+
+One sheet, one row per field across the core and every profile:
+
+`Field | Source | Type | Required | Allowed values | Default | Description | Section`
+
+- **Field** is the full dotted path including nested members (e.g.
+  `financial_data_handling.pci_scope.in_scope`, `tools[].name`).
+- **Source** is `Core` or the profile name (colour-coded); filter/sort it to
+  slice the data.
+- Fields come from each spec's `schema.json` where present (core, governance,
+  portfolio, registry — full types, enums, defaults, required); profiles that are
+  prose-only (financial, healthcare) are read from their `profile.md` member
+  tables. Tier-gated governance members show as `CONDITIONAL`.
+- Open in Excel or Google Sheets; reviewers right-click any cell to add a comment.
+
 ## Generating
 
 From the repo root:
